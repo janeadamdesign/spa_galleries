@@ -1,0 +1,32 @@
+// RTG Classes
+.photo-fade {
+  position: relative;
+}
+
+.photo-fade-appear,
+.photo-fade-appear-active,
+.photo-fade-exit,
+.photo-fade-exit-active,
+.photo-fade-exit-done,
+.photo-fade-enter,
+.photo-fade-enter-active {
+  transition: 0.5s ease-in-out;
+}
+.photo-fade-appear,
+.photo-fade-enter {
+  opacity: 0;
+   transform: translateX(50px);
+}
+.photo-fade-appear.photo-fade-appear-active,
+.photo-fade-enter.photo-fade-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.photo-fade-exit {
+  opacity: 1;
+}
+.photo-fade-exit.photo-fade-exit-active,
+.photo-fade-exit-done {
+  opacity: 0;
+  //transform: translateX(-50px);
+}
