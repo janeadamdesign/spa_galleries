@@ -664,3 +664,15 @@ body {
   width: 100%;
   max-width: $contentWidth;
 }
+
+
+.invisible-image, #invisible-image-container {
+  position: fixed;
+ opacity: 0;
+  z-index: -5;
+  height: 1px;
+  width: 1px;
+  top: 0;
+  left: 0;
+}
+

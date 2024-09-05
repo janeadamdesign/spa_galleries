@@ -39,6 +39,7 @@ export default function ModularContentBlock(
             fill
             sizes="100%"
             className="spa-content-photo"
+            priority
           />
         </CSSTransition>
       );

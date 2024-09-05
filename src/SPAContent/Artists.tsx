@@ -2,7 +2,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {
-  TransitionGroup,
   CSSTransition,
   SwitchTransition,
 } from "react-transition-group";
@@ -10,7 +9,6 @@ import {
 // local imports
 import {
   artistData,
-  artistUrlsCombined,
   ArtistDatum,
 } from "@/data/dataAndTypes";
 
@@ -29,10 +27,6 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
     href,
     even,
   }: { urls: string[]; name: string; href: string; even: boolean } = props;
-
-  
-
-
 
   // Image carousel logic
   const [urlState, setUrlState]: [
@@ -77,6 +71,7 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
               className="artist-photo"
               fill
               sizes="100%"
+              priority
             />
           </CSSTransition>
         </SwitchTransition>

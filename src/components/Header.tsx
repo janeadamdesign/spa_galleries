@@ -5,7 +5,11 @@ import Image from "next/image";
 // Local Imports
 import SideContent from "./SideContent";
 
-export default function Header(): React.ReactElement {
+interface HeaderProps {
+  nextImagesPreload: React.ReactElement[];
+}
+
+export default function Header(props: HeaderProps): React.ReactElement {
   // Navlink Function
   const [sideContentState, setSideContentState]: [
     number,
@@ -115,7 +119,13 @@ export default function Header(): React.ReactElement {
           className={logoRotate ? "rotate-logo" : "unrotate-logo"}
         >
           {" "}
-          <Image src="/pantiles.png" alt="spa-logo" fill sizes="100%" />
+          <Image
+            src="/pantiles.png"
+            alt="spa-logo"
+            fill
+            sizes="100%"
+            priority
+          />
         </div>
       </div>
 

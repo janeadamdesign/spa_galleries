@@ -4,6 +4,7 @@
 // Package Imports
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 // Local Imports
 import "../styling/spa.scss";
@@ -18,32 +19,58 @@ import Geometer from "../components/Geometer";
 import WhiteScreen from "@/components/WhiteScreen";
 import {
   SpaContentAnimation,
-  storeImages,
   pantilesUrls,
   eventImageUrls,
   artistUrlsCombined,
 } from "@/data/dataAndTypes";
 
 export default function Home() {
-  // Image Preloading Logic
+  // Image Preloading Logic DOESN'T WORK IN NEXT.JS
+  const storeNextImages = (
+    srcArray: string[],
+    stateSetter: React.Dispatch<React.SetStateAction<React.ReactElement[]>>
+  ): void => {
+    const handleImageLoad = (image: React.ReactElement): void => {
+      stateSetter((prev: React.ReactElement[]): React.ReactElement[] => {
+        if (
+          prev.find(
+            (extantImg: React.ReactElement): boolean =>
+              extantImg.props.src === image.props.src
+          )
+        ) {
+          return prev;
+        } else return [...prev, image];
+      });
+    };
+    srcArray.forEach((src: string): void => {
+      const img: React.ReactElement = (
+        <Image
+          src={src}
+          alt={`${src}-alt`}
+          className="invisible-image"
+          onLoad={() => handleImageLoad(<Image src={src} alt={`${src}-alt`} />)}
+        />
+      );
+    });
+  };
   const [nextImagesPreload, setNextImagesPreload]: [
-    HTMLImageElement[],
-    React.Dispatch<React.SetStateAction<HTMLImageElement[]>>
-  ] = useState<HTMLImageElement[]>([]);
+    React.ReactElement[],
+    React.Dispatch<React.SetStateAction<React.ReactElement[]>>
+  ] = useState<React.ReactElement[]>([]);
   const allImageUrls: string[] = [
     ...pantilesUrls,
     ...eventImageUrls.flat(),
     ...artistUrlsCombined.flat(),
+    "/pantiles.png",
   ];
   const [isLoaded, setIsLoaded]: [
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
   ] = useState<boolean>(false);
-
   useEffect((): void => {
     if (nextImagesPreload.length >= allImageUrls.length) return;
     else {
-      storeImages(allImageUrls, setNextImagesPreload);
+      storeNextImages(allImageUrls, setNextImagesPreload);
       setIsLoaded(true);
     }
   }, [nextImagesPreload]);
@@ -88,12 +115,12 @@ export default function Home() {
 
   return (
     <>
+      <div id="invisible-image-container">{...nextImagesPreload}</div>{" "}
       <div id="home">
-        <Header />
+        <Header nextImagesPreload={nextImagesPreload} />
         <SubHeader pageState={pageState} setPageState={setPageState} />
         {!introduction && isLoaded && (
           <>
-            {" "}
             <div id="space">
               <AnimatePresence mode="wait">
                 <motion.div key={pageState} {...spaContentAnimation}>
