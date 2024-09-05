@@ -1,7 +1,11 @@
 //package imports
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { TransitionGroup, CSSTransition, SwitchTransition } from "react-transition-group";
+import {
+  TransitionGroup,
+  CSSTransition,
+  SwitchTransition,
+} from "react-transition-group";
 
 // local imports
 import {
@@ -63,6 +67,7 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
             classNames="fade-simple"
           >
             <Image
+              key={urls[urlState]}
               src={urls[urlState]}
               alt={`alt-${urls[urlState]}`}
               className="artist-photo"
@@ -96,6 +101,7 @@ export default function Artists(): React.ReactElement {
       const even: boolean = index % 2 === 1;
       return (
         <ArtistPortrait
+          key={index}
           urls={artistDatum.urls}
           name={artistDatum.artistName}
           href={artistDatum.link ? artistDatum.link : ""}
@@ -131,8 +137,12 @@ export default function Artists(): React.ReactElement {
   ): JSX.Element[] => {
     if (!isDoubles) {
       return generatedPortraits.map(
-        (portrait: React.ReactElement): JSX.Element => {
-          return <div className="single-portrait">{portrait}</div>;
+        (portrait: React.ReactElement, index: number): JSX.Element => {
+          return (
+            <div key={index} className="single-portrait">
+              {portrait}
+            </div>
+          );
         }
       );
     } else {
@@ -150,11 +160,13 @@ export default function Artists(): React.ReactElement {
       );
       const wrappedDoubles: JSX.Element[] = chunkedPortraits.map(
         (double: React.ReactElement[], index: number): JSX.Element => {
-          if (index % 2 !== 0) { 
+          if (index % 2 !== 0) {
             double = double.slice().reverse();
           }
           return (
-            <div className="double-portrait flex row around">{double}</div>
+            <div key={index} className="double-portrait flex row around">
+              {double}
+            </div>
           );
         }
       );
