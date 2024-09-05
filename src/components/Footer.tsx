@@ -1,7 +1,7 @@
 // Package imports
 import React, { useState, useEffect, useRef } from "react";
 import validator from "validator";
-import { motion, AnimatePresence, easeInOut } from "framer-motion";
+import { motion, AnimatePresence, easeInOut, easeOut } from "framer-motion";
 
 // Local imports
 import { ParagraphAnimate } from "@/data/dataAndTypes";
@@ -91,9 +91,28 @@ export default function Footer(): React.ReactElement {
     };
   }, [dialog]);
 
+  // Differential logic to disable scroll
+
+  useEffect((): void | (() => void) => {
+    const preventScroll = (e: WheelEvent | TouchEvent): void =>
+      e.preventDefault();
+    if (dialog) {
+      window.addEventListener("wheel", preventScroll, { passive: false });
+      window.addEventListener("touchmove", preventScroll, { passive: false });
+    } else {
+      window.removeEventListener("wheel", preventScroll);
+      window.removeEventListener("touchmove", preventScroll);
+    }
+
+    return (): void => {
+      window.removeEventListener("wheel", preventScroll);
+      window.removeEventListener("touchmove", preventScroll);
+    };
+  }, [dialog]);
+
   return (
     <div id={submission ? "footer-small" : "footer"}>
-      <motion.div id="email-subscription" className="flex column around">
+      <div id="email-subscription" className="flex column around">
         <motion.p className="inter footer-text" {...paragraphAnimate}>
           REGISTER FOR EMAIL UPDATES
         </motion.p>
@@ -143,15 +162,17 @@ export default function Footer(): React.ReactElement {
             {submission ? "Subscribed" : "Subscribe"}
           </p>
         </button>
-      </motion.div>
+      </div>
       <div id="copyright" className="flex row center inter footer-text">
         {" "}
         <p>© 2024 THE SPA GALLERIES</p>
       </div>
+
       <AnimatePresence>
         {dialog && (
           <motion.div
             key="screen"
+            id="screen"
             className="full-dims"
             initial={{ opacity: 0 }}
             animate={{
@@ -164,13 +185,23 @@ export default function Footer(): React.ReactElement {
             }}
           >
             <div id="screen-dim" />
-            <div id="compulsory-dialog" className="flex column around">
+            <motion.div
+              id="compulsory-dialog"
+              className="flex column around"
+              initial={{ maxHeight: "0%" }}
+              animate={{ maxHeight: "100%" }}
+              transition={{
+                ease: easeOut,
+                duration: 0.5,
+                delay: 0.25,
+              }}
+            >
               {" "}
               <p className="header-title">Thank you !</p>
               <p className="inter dialog-text">
                 Keep an eye on your inbox, we'll be in touch soon
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

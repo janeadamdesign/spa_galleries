@@ -30,3 +30,69 @@
   opacity: 0;
   //transform: translateX(-50px);
 }
+
+
+// RTG Classes
+.photo-fade-odd {
+  position: relative;
+}
+
+.photo-fade-odd-appear,
+.photo-fade-odd-appear-active,
+.photo-fade-odd-exit,
+.photo-fade-odd-exit-active,
+.photo-fade-odd-exit-done,
+.photo-fade-odd-enter,
+.photo-fade-odd-enter-active {
+  transition: 0.5s ease-in-out;
+}
+.photo-fade-odd-appear,
+.photo-fade-odd-enter {
+  opacity: 0;
+   transform: translateX(-50px);
+}
+.photo-fade-odd-appear.photo-fade-odd-appear-active,
+.photo-fade-odd-enter.photo-fade-odd-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.photo-fade-odd-exit {
+  opacity: 1;
+}
+.photo-fade-odd-exit.photo-fade-odd-exit-active,
+.photo-fade-odd-exit-done {
+  opacity: 0;
+  //transform: translateX(-50px);
+}
+
+
+
+// RTG Classes
+.fade-simple {
+  position: relative;
+}
+
+.fade-simple-appear,
+.fade-simple-appear-active,
+.fade-simple-exit,
+.fade-simple-exit-active,
+.fade-simple-exit-done,
+.fade-simple-enter,
+.fade-simple-enter-active {
+  transition: 0.125s linear;
+}
+.fade-simple-appear,
+.fade-simple-enter {
+  opacity: 0;
+}
+.fade-simple-appear.fade-simple-appear-active,
+.fade-simple-enter.fade-simple-enter-active {
+  opacity: 1;
+}
+.fade-simple-exit {
+  opacity: 1;
+}
+.fade-simple-exit.fade-simple-exit-active,
+.fade-simple-exit-done {
+  opacity: 0;
+}
