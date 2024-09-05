@@ -21,6 +21,7 @@ import {
   storeImages,
   pantilesUrls,
   eventImageUrls,
+  artistUrlsCombined,
 } from "@/data/dataAndTypes";
 
 export default function Home() {
@@ -29,7 +30,11 @@ export default function Home() {
     HTMLImageElement[],
     React.Dispatch<React.SetStateAction<HTMLImageElement[]>>
   ] = useState<HTMLImageElement[]>([]);
-  const allImageUrls: string[] = [...pantilesUrls, ...eventImageUrls.flat()];
+  const allImageUrls: string[] = [
+    ...pantilesUrls,
+    ...eventImageUrls.flat(),
+    ...artistUrlsCombined.flat(),
+  ];
   const [isLoaded, setIsLoaded]: [
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
@@ -105,7 +110,10 @@ export default function Home() {
           </>
         )}
       </div>
-      <WhiteScreen introduction={introduction} setIntroduction={setIntroduction} />
+      <WhiteScreen
+        introduction={introduction}
+        setIntroduction={setIntroduction}
+      />
     </>
   );
 }

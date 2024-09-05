@@ -30,6 +30,10 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
     even,
   }: { urls: string[]; name: string; href: string; even: boolean } = props;
 
+  
+
+
+
   // Image carousel logic
   const [urlState, setUrlState]: [
     number,
