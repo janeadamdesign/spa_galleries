@@ -22,41 +22,14 @@ import {
   pantilesUrls,
   eventImageUrls,
   artistUrlsCombined,
+  storeImages,
 } from "@/data/dataAndTypes";
 
 export default function Home() {
-  // Image Preloading Logic DOESN'T WORK IN NEXT.JS
-  const storeNextImages = (
-    srcArray: string[],
-    stateSetter: React.Dispatch<React.SetStateAction<React.ReactElement[]>>
-  ): void => {
-    const handleImageLoad = (image: React.ReactElement): void => {
-      stateSetter((prev: React.ReactElement[]): React.ReactElement[] => {
-        if (
-          prev.find(
-            (extantImg: React.ReactElement): boolean =>
-              extantImg.props.src === image.props.src
-          )
-        ) {
-          return prev;
-        } else return [...prev, image];
-      });
-    };
-    srcArray.forEach((src: string): void => {
-      const img: React.ReactElement = (
-        <Image
-          src={src}
-          alt={`${src}-alt`}
-          className="invisible-image"
-          onLoad={() => handleImageLoad(<Image src={src} alt={`${src}-alt`} />)}
-        />
-      );
-    });
-  };
-  const [nextImagesPreload, setNextImagesPreload]: [
-    React.ReactElement[],
-    React.Dispatch<React.SetStateAction<React.ReactElement[]>>
-  ] = useState<React.ReactElement[]>([]);
+  const [imagesPreload, setImagesPreload]: [
+    HTMLImageElement[],
+    React.Dispatch<React.SetStateAction<HTMLImageElement[]>>
+  ] = useState<HTMLImageElement[]>([]);
   const allImageUrls: string[] = [
     ...pantilesUrls,
     ...eventImageUrls.flat(),
@@ -67,13 +40,14 @@ export default function Home() {
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
   ] = useState<boolean>(false);
+  <div className=".0"></div>;
   useEffect((): void => {
-    if (nextImagesPreload.length >= allImageUrls.length) return;
+    if (imagesPreload.length >= allImageUrls.length) return;
     else {
-      storeNextImages(allImageUrls, setNextImagesPreload);
+      storeImages(allImageUrls, setImagesPreload);
       setIsLoaded(true);
     }
-  }, [nextImagesPreload]);
+  }, [imagesPreload]);
 
   // Differential Rendering Logic
   const [pageState, setPageState]: [
@@ -85,9 +59,9 @@ export default function Home() {
     animate: { opacity: 1, x: 0 },
   };
   const spaContentComponents: { [key: number]: React.ReactElement } = {
-    0: <HomeContent />,
-    1: <Artists />,
-    2: <WhatsOn />,
+    0: <HomeContent  imagesPreload={imagesPreload} />,
+    1: <Artists imagesPreload={imagesPreload} />,
+    2: <WhatsOn imagesPreload={imagesPreload} />,
   };
 
   // Loading Scene
@@ -115,9 +89,8 @@ export default function Home() {
 
   return (
     <>
-      <div id="invisible-image-container">{...nextImagesPreload}</div>{" "}
       <div id="home">
-        <Header nextImagesPreload={nextImagesPreload} />
+        <Header imagesPreload={imagesPreload} allImageUrls={allImageUrls}/>
         <SubHeader pageState={pageState} setPageState={setPageState} />
         {!introduction && isLoaded && (
           <>

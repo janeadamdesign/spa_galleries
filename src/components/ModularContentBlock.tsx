@@ -1,13 +1,13 @@
 // package imports
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { CSSTransition, TransitionGroup, SwitchTransition } from "react-transition-group";
+import { CSSTransition, SwitchTransition, TransitionGroup } from "react-transition-group";
 
 interface ModularContentBlockProps {
   isOdd: boolean;
   isHome: boolean;
   imageUrlArray: string[];
   rightHandContent: JSX.Element;
+  imagesPreload: HTMLImageElement[];
 }
 
 export default function ModularContentBlock(
@@ -18,10 +18,13 @@ export default function ModularContentBlock(
     isOdd,
     imageUrlArray,
     rightHandContent,
+    imagesPreload,
+    
   }: {
     isOdd: boolean;
     imageUrlArray: string[];
     rightHandContent: JSX.Element;
+    imagesPreload: HTMLImageElement[];
   } = props;
 
   // Image JSX Array Generation function
@@ -30,16 +33,22 @@ export default function ModularContentBlock(
   ): JSX.Element[] => {
     return imageUrlArray.map((url: string): JSX.Element => {
       const classNameCSS: string = isOdd ? "photo-fade-odd" : "photo-fade";
+      const storedImage: HTMLImageElement | undefined = imagesPreload.find(
+        (image: HTMLImageElement): boolean => {
+          return image.src.endsWith(url);
+        }
+      );
+      let statefulUrl: string = "";
+      if (!storedImage) return <></>;
+      else statefulUrl = storedImage.src;
+
       return (
-        <CSSTransition key={url} timeout={500} classNames={classNameCSS}>
-          <Image
+        <CSSTransition key={url} timeout={250} classNames={classNameCSS}>
+          <img
             key={url}
-            src={url}
-            alt={`${url}-pantiles-photo`}
-            fill
-            sizes="100%"
-            className="spa-content-photo"
-            priority
+            src={statefulUrl}
+            alt={`${url}-photo`}
+            className="spa-content-photo full-dims"
           />
         </CSSTransition>
       );
@@ -75,7 +84,6 @@ export default function ModularContentBlock(
       }
     }, delayConst);
 
-
     return (): void => {
       clearTimeout(photoTimer);
     };
@@ -83,9 +91,10 @@ export default function ModularContentBlock(
 
   const photoSide: JSX.Element = (
     <div className="photo-container">
-      <TransitionGroup>
-        {storedNextImages && storedNextImages[imageState]}
-      </TransitionGroup>
+      {storedNextImages &&
+      <SwitchTransition>
+        { storedNextImages[imageState]}
+      </SwitchTransition>}
     </div>
   );
   const textSide: JSX.Element = rightHandContent;

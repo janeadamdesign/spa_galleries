@@ -2,7 +2,16 @@
 import { spaGalleriesPantiles, pantilesUrls } from "@/data/dataAndTypes";
 import ModularContentBlock from "@/components/ModularContentBlock";
 
-export default function HomeContent(): React.ReactElement {
+interface HomeContentProps {
+  imagesPreload: HTMLImageElement[];
+}
+
+export default function HomeContent(props: HomeContentProps): React.ReactElement {
+    // Destructuring props
+    const {
+      imagesPreload,
+    }: { imagesPreload: HTMLImageElement[] } = props;
+
   // Content generation logic
   const paragraphArray: number[] = [0, 1, 2, 3];
   const injectedPantiles: JSX.Element[] = paragraphArray.map(
@@ -32,6 +41,7 @@ export default function HomeContent(): React.ReactElement {
       isHome
       imageUrlArray={pantilesUrls}
       rightHandContent={homeText}
+      imagesPreload={imagesPreload} 
     />
   );
 }

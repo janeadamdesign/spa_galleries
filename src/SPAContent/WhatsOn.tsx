@@ -10,7 +10,16 @@ import {
 
 import ModularContentBlock from "@/components/ModularContentBlock";
 
-export default function Artists(): React.ReactElement {
+interface ArtistsProps {
+  imagesPreload: HTMLImageElement[];
+}
+
+export default function Artists(props: ArtistsProps): React.ReactElement {
+  // Destructuring props
+  const {
+    imagesPreload,
+  }: { imagesPreload: HTMLImageElement[] } = props;
+
   // Generation main
   const generateContentModules = (
     eventImageUrls: string[][]
@@ -27,6 +36,7 @@ export default function Artists(): React.ReactElement {
             isHome={false}
             imageUrlArray={imageUrlArray}
             rightHandContent={generateTextContent(index)}
+            imagesPreload={imagesPreload}
           />
         );
       }

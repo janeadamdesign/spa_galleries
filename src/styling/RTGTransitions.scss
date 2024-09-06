@@ -10,7 +10,7 @@
 .photo-fade-exit-done,
 .photo-fade-enter,
 .photo-fade-enter-active {
-  transition: 0.5s ease-in-out;
+  transition: 0.25s ease-in-out;
 }
 .photo-fade-appear,
 .photo-fade-enter {
@@ -44,7 +44,7 @@
 .photo-fade-odd-exit-done,
 .photo-fade-odd-enter,
 .photo-fade-odd-enter-active {
-  transition: 0.5s ease-in-out;
+  transition: 0.25s ease-in-out;
 }
 .photo-fade-odd-appear,
 .photo-fade-odd-enter {
@@ -79,7 +79,7 @@
 .fade-simple-exit-done,
 .fade-simple-enter,
 .fade-simple-enter-active {
-  transition: 0.125s linear;
+  transition: 0.25s linear;
 }
 .fade-simple-appear,
 .fade-simple-enter {
@@ -94,5 +94,38 @@
 }
 .fade-simple-exit.fade-simple-exit-active,
 .fade-simple-exit-done {
-  opacity: 0;
+  opacity: 1;
+}
+
+
+
+// RTG Classes
+.clip-path {
+  position: relative;
+}
+
+.clip-path-appear,
+.clip-path-appear-active,
+.clip-path-exit,
+.clip-path-exit-active,
+.clip-path-exit-done,
+.clip-path-enter,
+.clip-path-enter-active {
+  transition: 1s ease-in-out;
+}
+.clip-path-appear,
+.clip-path-enter {
+  clip-path: inset(0 0 100% 0);
+}
+
+.clip-path-appear.clip-path-appear-active,
+.clip-path-enter.clip-path-enter-active {
+  clip-path: inset(0 0 0 0); /* Fully revealed */
+}
+.clip-path-exit {
+  clip-path: inset(0 0 0 0); /* Fully revealed */
+}
+.clip-path-exit.clip-path-exit-active,
+.clip-path-exit-done {
+  clip-path: inset(0 0 100% 0);
 }

@@ -314,6 +314,7 @@ body {
   overflow: hidden;
 }
 
+
 .rotate-logo {
   animation: rotateLogo 0.5s ease-in-out;
 }
@@ -521,6 +522,10 @@ body {
   height: 100%;
   overflow: hidden;
   width: 50%;
+  background: transparent;
+}
+.spa-content-photo{
+  background-color: transparent;
 }
 
 #home-text-container,
