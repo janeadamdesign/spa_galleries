@@ -4,7 +4,6 @@
 // Package Imports
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 
 // Local Imports
 import "../styling/spa.scss";
@@ -59,9 +58,9 @@ export default function Home() {
     animate: { opacity: 1, x: 0 },
   };
   const spaContentComponents: { [key: number]: React.ReactElement } = {
-    0: <HomeContent  imagesPreload={imagesPreload} />,
-    1: <Artists imagesPreload={imagesPreload} />,
-    2: <WhatsOn imagesPreload={imagesPreload} />,
+    0: <HomeContent />,
+    1: <Artists />,
+    2: <WhatsOn  />,
   };
 
   // Loading Scene
@@ -90,7 +89,7 @@ export default function Home() {
   return (
     <>
       <div id="home">
-        <Header imagesPreload={imagesPreload} allImageUrls={allImageUrls}/>
+        <Header/>
         <SubHeader pageState={pageState} setPageState={setPageState} />
         {!introduction && isLoaded && (
           <>

@@ -11,7 +11,6 @@ interface ModularContentBlockProps {
   isHome: boolean;
   imageUrlArray: string[];
   rightHandContent: JSX.Element;
-  imagesPreload: HTMLImageElement[];
 }
 
 export default function ModularContentBlock(
@@ -22,12 +21,10 @@ export default function ModularContentBlock(
     isOdd,
     imageUrlArray,
     rightHandContent,
-    imagesPreload,
   }: {
     isOdd: boolean;
     imageUrlArray: string[];
     rightHandContent: JSX.Element;
-    imagesPreload: HTMLImageElement[];
   } = props;
 
   // Image JSX Array Generation function
@@ -36,15 +33,6 @@ export default function ModularContentBlock(
   ): JSX.Element[] => {
     return imageUrlArray.map((url: string): JSX.Element => {
       const classNameCSS: string = isOdd ? "photo-fade-odd" : "photo-fade";
-      const storedImage: HTMLImageElement | undefined = imagesPreload.find(
-        (image: HTMLImageElement): boolean => {
-          return image.src.endsWith(url);
-        }
-      );
-      let statefulUrl: string = "";
-      if (!storedImage) return <></>;
-      else statefulUrl = storedImage.src;
-
       return (
         <CSSTransition key={url} timeout={250} classNames={classNameCSS}>
           <img

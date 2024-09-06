@@ -1,6 +1,10 @@
 //package imports
 import React, { useEffect, useState } from "react";
-import { CSSTransition, SwitchTransition, TransitionGroup } from "react-transition-group";
+import {
+  CSSTransition,
+  SwitchTransition,
+  TransitionGroup,
+} from "react-transition-group";
 
 // local imports
 import { artistData, ArtistDatum } from "@/data/dataAndTypes";
@@ -10,7 +14,6 @@ interface ArtistPortraitProps {
   name: string;
   href: string;
   even: boolean;
-  imagesPreload: HTMLImageElement[];
 }
 
 function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
@@ -20,13 +23,11 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
     name,
     href,
     even,
-    imagesPreload,
   }: {
     urls: string[];
     name: string;
     href: string;
     even: boolean;
-    imagesPreload: HTMLImageElement[];
   } = props;
 
   // Image carousel logic
@@ -56,42 +57,21 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
     };
   }, [urlState]);
 
-  const [currentStoredImage, setCurrentStoredImage]: [
-    HTMLImageElement | null,
-    React.Dispatch<React.SetStateAction<HTMLImageElement | null>>
-  ] = useState<HTMLImageElement | null>(null);
-  useEffect((): void => {
-    const storedLogo: HTMLImageElement | undefined = imagesPreload.find(
-      (image: HTMLImageElement): boolean => {
-        return image.src.endsWith(urls[urlState]);
-      }
-    );
-    if (storedLogo) {
-      setCurrentStoredImage(storedLogo);
-    } else alert("Could not find image");
-  }, [imagesPreload, currentStoredImage, urlState]);
-
-
   return (
     <div className="artist-portrait flex column around" key={name}>
       <div className="artist-photo-container">
-        <SwitchTransition >
+        <SwitchTransition>
           <CSSTransition
             key={urls[urlState]}
             timeout={250}
             classNames="fade-simple"
             in={false}
-          
           >
-            <React.Fragment key={urls[urlState]}>
-              {currentStoredImage && (
-                <img
-                  // src={currentStoredImage.src}
-                  src={urls[urlState]}
-                  className="artist-photo full-dims"
-                />
-              )}
-            </React.Fragment>
+            <img
+              key={urls[urlState]}
+              src={urls[urlState]}
+              className="artist-photo full-dims"
+            />
           </CSSTransition>
         </SwitchTransition>
       </div>
@@ -104,14 +84,7 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
   );
 }
 
-interface ArtistsProps {
-  imagesPreload: HTMLImageElement[];
-}
-
-export default function Artists(props: ArtistsProps): React.ReactElement {
-  // Destructuring props
-  const { imagesPreload }: { imagesPreload: HTMLImageElement[] } = props;
-
+export default function Artists(): React.ReactElement {
   // Portrait generation logic
   const numberOfArtists: number = Object.values(artistData).length;
   const lengthyArray: number[] = Array.from(
@@ -131,7 +104,6 @@ export default function Artists(props: ArtistsProps): React.ReactElement {
           name={artistDatum.artistName}
           href={artistDatum.link ? artistDatum.link : ""}
           even={even}
-          imagesPreload={imagesPreload}
         />
       );
     }

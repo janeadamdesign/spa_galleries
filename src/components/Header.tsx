@@ -4,38 +4,7 @@ import React, { useEffect, useState } from "react";
 // Local Imports
 import SideContent from "./SideContent";
 
-interface HeaderProps {
-  imagesPreload: HTMLImageElement[];
-  allImageUrls: string[];
-}
-
-export default function Header(props: HeaderProps): React.ReactElement {
-  // Destructuring props
-  const {
-    imagesPreload,
-    allImageUrls,
-  }: { imagesPreload: HTMLImageElement[]; allImageUrls: string[] } = props;
-
-  // Extracting logo
-
-  /*
-  const [logo, setLogo]: [
-    HTMLImageElement | null,
-    React.Dispatch<React.SetStateAction<HTMLImageElement | null>>
-  ] = useState<HTMLImageElement | null>(null);
-  useEffect((): void => {
-    if (logo) return;
-    if (imagesPreload.length < allImageUrls.length) return;
-    const storedLogo: HTMLImageElement | undefined = imagesPreload.find(
-      (image: HTMLImageElement): boolean => {
-        return image.src.endsWith("/pantiles.png");
-      }
-    );
-    if (storedLogo) {
-      setLogo(storedLogo);
-    } else alert("Could not find logo");
-  }, [imagesPreload, logo, allImageUrls]);*/
-
+export default function Header(): React.ReactElement {
   // Navlink Function
   const [sideContentState, setSideContentState]: [
     number,
@@ -144,14 +113,12 @@ export default function Header(props: HeaderProps): React.ReactElement {
           id="logo-container"
           className={logoRotate ? "rotate-logo" : "unrotate-logo"}
         >
-          
-            <img
-              src={"/pantiles.png"}
-              alt="spa-logo"
-              id="logo-image"
-              className="full-dims"
-            />
-        
+          <img
+            src={"/pantiles.png"}
+            alt="spa-logo"
+            id="logo-image"
+            className="full-dims"
+          />
         </div>
       </div>
 
