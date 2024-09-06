@@ -86,7 +86,8 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
             <React.Fragment key={urls[urlState]}>
               {currentStoredImage && (
                 <img
-                  src={currentStoredImage.src}
+                  // src={currentStoredImage.src}
+                  src={urls[urlState]}
                   className="artist-photo full-dims"
                 />
               )}

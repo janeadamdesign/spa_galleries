@@ -1,6 +1,10 @@
 // package imports
 import React, { useState, useEffect } from "react";
-import { CSSTransition, SwitchTransition, TransitionGroup } from "react-transition-group";
+import {
+  CSSTransition,
+  SwitchTransition,
+  TransitionGroup,
+} from "react-transition-group";
 
 interface ModularContentBlockProps {
   isOdd: boolean;
@@ -19,7 +23,6 @@ export default function ModularContentBlock(
     imageUrlArray,
     rightHandContent,
     imagesPreload,
-    
   }: {
     isOdd: boolean;
     imageUrlArray: string[];
@@ -46,7 +49,7 @@ export default function ModularContentBlock(
         <CSSTransition key={url} timeout={250} classNames={classNameCSS}>
           <img
             key={url}
-            src={statefulUrl}
+            src={url}
             alt={`${url}-photo`}
             className="spa-content-photo full-dims"
           />
@@ -91,10 +94,9 @@ export default function ModularContentBlock(
 
   const photoSide: JSX.Element = (
     <div className="photo-container">
-      {storedNextImages &&
-      <SwitchTransition>
-        { storedNextImages[imageState]}
-      </SwitchTransition>}
+      {storedNextImages && (
+        <SwitchTransition>{storedNextImages[imageState]}</SwitchTransition>
+      )}
     </div>
   );
   const textSide: JSX.Element = rightHandContent;

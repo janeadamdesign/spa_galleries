@@ -17,6 +17,8 @@ export default function Header(props: HeaderProps): React.ReactElement {
   }: { imagesPreload: HTMLImageElement[]; allImageUrls: string[] } = props;
 
   // Extracting logo
+
+  /*
   const [logo, setLogo]: [
     HTMLImageElement | null,
     React.Dispatch<React.SetStateAction<HTMLImageElement | null>>
@@ -32,7 +34,7 @@ export default function Header(props: HeaderProps): React.ReactElement {
     if (storedLogo) {
       setLogo(storedLogo);
     } else alert("Could not find logo");
-  }, [imagesPreload, logo, allImageUrls]);
+  }, [imagesPreload, logo, allImageUrls]);*/
 
   // Navlink Function
   const [sideContentState, setSideContentState]: [
@@ -142,15 +144,14 @@ export default function Header(props: HeaderProps): React.ReactElement {
           id="logo-container"
           className={logoRotate ? "rotate-logo" : "unrotate-logo"}
         >
-          {" "}
-          {logo && (
+          
             <img
-              src={logo.src}
+              src={"/pantiles.png"}
               alt="spa-logo"
               id="logo-image"
               className="full-dims"
             />
-          )}
+        
         </div>
       </div>
 
