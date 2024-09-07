@@ -89,7 +89,7 @@ export default function Home() {
   const [introduction, setIntroduction]: [
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
-  ] = useState<boolean>(false);
+  ] = useState<boolean>(true);
   useEffect((): void | (() => void) => {
     const preventScroll = (e: WheelEvent | TouchEvent): void =>
       e.preventDefault();
@@ -130,7 +130,7 @@ export default function Home() {
       <div id="home">
         <Header />
         <SubHeader pageState={pageState} setPageState={setPageState} />
-        { /* !introduction && */ isLoaded && (
+        {  !introduction && isLoaded && (
           <>
             <div id="space">
               <AnimatePresence mode="wait">
@@ -149,11 +149,11 @@ export default function Home() {
         )}
       </div>
       {
-        /*
+       
         <WhiteScreen
           introduction={introduction}
           setIntroduction={setIntroduction}
-        />*/
+        />
       }
     </>
   );
