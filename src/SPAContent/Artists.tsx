@@ -1,10 +1,6 @@
 //package imports
 import React, { useEffect, useState } from "react";
-import {
-  CSSTransition,
-  SwitchTransition,
-  TransitionGroup,
-} from "react-transition-group";
+import { AnimatePresence, motion } from "framer-motion";
 
 // local imports
 import { artistData, ArtistDatum } from "@/data/dataAndTypes";
@@ -39,7 +35,6 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
   ] = useState<boolean>(true);
-
   useEffect((): (() => void) => {
     const numberOfImages: number = urls.length;
     const timerConstant: number = even && firstTransition ? 6000 : 5000;
@@ -51,7 +46,6 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
         setFirstTransition(false);
       }
     }, timerConstant);
-
     return (): void => {
       clearTimeout(imageUrlTimer);
     };
@@ -60,20 +54,18 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
   return (
     <div className="artist-portrait flex column around" key={name}>
       <div className="artist-photo-container">
-        <SwitchTransition>
-          <CSSTransition
-            key={urls[urlState]}
-            timeout={250}
-            classNames="fade-simple"
-            in={false}
-          >
-            <img
-              key={urls[urlState]}
-              src={urls[urlState]}
-              className="artist-photo full-dims"
-            />
-          </CSSTransition>
-        </SwitchTransition>
+        <AnimatePresence>
+          {" "}
+          <motion.img
+            key={`url-${urls[urlState]}`}
+            initial={{ clipPath: `inset(0 0 100% 0)` }}
+            animate={{ clipPath: `inset(0 0 0 0)` }}
+            exit={{ clipPath: `inset(0 0 0 0)`, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            src={urls[urlState]}
+            className="artist-photo full-dims"
+          />
+        </AnimatePresence>
       </div>
       <div className="artist-name-wrapper">
         <a className="inter artist-name" href={href} target="_blank">
@@ -84,7 +76,14 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
   );
 }
 
-export default function Artists(): React.ReactElement {
+interface ArtistsProps {
+  isDoubles: boolean
+}
+
+export default function Artists(props: ArtistsProps): React.ReactElement {
+  // Destructuring Props
+  const {isDoubles} : {isDoubles: boolean} = props;
+
   // Portrait generation logic
   const numberOfArtists: number = Object.values(artistData).length;
   const lengthyArray: number[] = Array.from(
@@ -99,7 +98,7 @@ export default function Artists(): React.ReactElement {
       const even: boolean = index % 2 === 1;
       return (
         <ArtistPortrait
-          key={index}
+          key={`AP-${index}`}
           urls={artistDatum.urls}
           name={artistDatum.artistName}
           href={artistDatum.link ? artistDatum.link : ""}
@@ -110,25 +109,6 @@ export default function Artists(): React.ReactElement {
   );
 
   // Portrait organisation logic
-  const [isDoubles, setIsDoubles]: [
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>
-  ] = useState<boolean>(true);
-  useEffect((): (() => void) => {
-    const checkWidth = (): void => {
-      const width: number = window.innerWidth;
-      if (width > 900) {
-        setIsDoubles(true);
-      } else setIsDoubles(false);
-    };
-    checkWidth();
-
-    window.addEventListener("resize", checkWidth);
-
-    return (): void => {
-      window.removeEventListener("resize", checkWidth);
-    };
-  }, []);
 
   const generateOrganisedPortraits = (
     generatedPortraits: React.ReactElement[]
@@ -137,7 +117,7 @@ export default function Artists(): React.ReactElement {
       return generatedPortraits.map(
         (portrait: React.ReactElement, index: number): JSX.Element => {
           return (
-            <div key={index} className="single-portrait">
+            <div key={`portrait-${index}`} className="single-portrait">
               {portrait}
             </div>
           );
@@ -162,7 +142,7 @@ export default function Artists(): React.ReactElement {
             double = double.slice().reverse();
           }
           return (
-            <div key={index} className="double-portrait flex row around">
+            <div key={`double-${index}`} className="double-portrait flex row around">
               {double}
             </div>
           );

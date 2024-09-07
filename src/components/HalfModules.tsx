@@ -41,21 +41,22 @@ export default function ModularContentBlock(
       clearTimeout(photoTimer);
     };
   }, [imageState, imageUrlArray]);
-  const evenInitial: {clipPath: string} = {
+
+  const evenInitial: { clipPath: string } = {
     clipPath: "inset(0 0 0 100%)",
   };
-  const oddInitial: {clipPath: string} = {
+  const oddInitial: { clipPath: string } = {
     clipPath: "inset(0 100% 0 0)",
   };
   const photoSide: JSX.Element = (
-    <div className="photo-container">
+    <div className="half-photo-container">
       <AnimatePresence>
         <motion.img
           src={imageUrlArray[imageState]}
           key={`key-${imageUrlArray[imageState]}`}
           className="spa-content-photo full-dims"
           initial={isOdd ? { ...oddInitial } : { ...evenInitial }}
-          animate={{ clipPath: `inset(0 0 0 0)`}}
+          animate={{ clipPath: `inset(0 0 0 0)` }}
           exit={{ clipPath: `inset(0 0 0 0)`, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         />
@@ -67,26 +68,14 @@ export default function ModularContentBlock(
     ? "spa-content full-dims fill-grey-right"
     : "spa-content full-dims fill-grey-left";
 
-
-  // scroll animatoin 
-
   return (
     <div className={parentClassName}>
       <div
-        className="spa-content-container flex row center"
+        className="half-content-container flex column between"
         style={isOdd ? { marginLeft: "auto" } : {}}
       >
-        {!isOdd ? (
-          <>
-           {photoSide}
-            {textSide}
-          </>
-        ) : (
-          <>
-            {textSide}
-            {photoSide}
-          </>
-        )}
+        {photoSide}
+        {textSide}
       </div>
     </div>
   );

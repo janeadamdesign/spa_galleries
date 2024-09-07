@@ -22,9 +22,17 @@ export default function SideHeader(props: SideHeaderProps): React.ReactElement {
         stateConst === pageState ? "motion-link-selected" : "motion-link"
       }`;
 
-      return <p key={text} className={classNameContent} onClick={():void=> {
-        setPageState(stateConst)
-      }}>{text}</p>;
+      return (
+        <p
+          key={text}
+          className={classNameContent}
+          onClick={(): void => {
+            setPageState(stateConst);
+          }}
+        >
+          {text}
+        </p>
+      );
     }
   );
 

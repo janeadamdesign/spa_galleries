@@ -25,6 +25,7 @@ import {
 } from "@/data/dataAndTypes";
 
 export default function Home() {
+  //Image preloading logic
   const [imagesPreload, setImagesPreload]: [
     HTMLImageElement[],
     React.Dispatch<React.SetStateAction<HTMLImageElement[]>>
@@ -48,6 +49,27 @@ export default function Home() {
     }
   }, [imagesPreload]);
 
+  
+  // Doubles checking
+
+  const [isDoubles, setIsDoubles]: [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+  ] = useState<boolean>(true);
+  useEffect((): (() => void) => {
+    const checkWidth = (): void => {
+      const width: number = window.innerWidth;
+      if (width > 1000) {
+        setIsDoubles(true);
+      } else setIsDoubles(false);
+    };
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return (): void => {
+      window.removeEventListener("resize", checkWidth);
+    };
+  }, []);
+
   // Differential Rendering Logic
   const [pageState, setPageState]: [
     number,
@@ -58,17 +80,16 @@ export default function Home() {
     animate: { opacity: 1, x: 0 },
   };
   const spaContentComponents: { [key: number]: React.ReactElement } = {
-    0: <HomeContent />,
-    1: <Artists />,
-    2: <WhatsOn  />,
+    0: <HomeContent isDoubles={isDoubles} />,
+    1: <Artists isDoubles={isDoubles}  />,
+    2: <WhatsOn isDoubles={isDoubles}  />,
   };
 
   // Loading Scene
-
   const [introduction, setIntroduction]: [
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
-  ] = useState<boolean>(true);
+  ] = useState<boolean>(false);
   useEffect((): void | (() => void) => {
     const preventScroll = (e: WheelEvent | TouchEvent): void =>
       e.preventDefault();
@@ -86,12 +107,30 @@ export default function Home() {
     };
   }, [introduction]);
 
+
+  // Scroll to top logic
+  useEffect((): (() => void) => {
+    const scrollTimer: NodeJS.Timeout | number = setTimeout((): void => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 1);
+
+    return (): void => {
+      clearTimeout(scrollTimer);
+    };
+  }, [pageState]);
+
+
+  
+
   return (
     <>
       <div id="home">
-        <Header/>
+        <Header />
         <SubHeader pageState={pageState} setPageState={setPageState} />
-        {!introduction && isLoaded && (
+        { /* !introduction && */ isLoaded && (
           <>
             <div id="space">
               <AnimatePresence mode="wait">
@@ -109,10 +148,13 @@ export default function Home() {
           </>
         )}
       </div>
-      <WhiteScreen
-        introduction={introduction}
-        setIntroduction={setIntroduction}
-      />
+      {
+        /*
+        <WhiteScreen
+          introduction={introduction}
+          setIntroduction={setIntroduction}
+        />*/
+      }
     </>
   );
 }

@@ -37,6 +37,13 @@ export interface ArtistDatum {
   link?: string;
   urls: string[];
 }
+export interface ModularContentBlockProps {
+  isOdd: boolean;
+  isHome: boolean;
+  imageUrlArray: string[];
+  rightHandContent: JSX.Element;
+  key? : string
+}
 
 // Functions
 export const storeImages = (

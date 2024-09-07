@@ -7,13 +7,17 @@ import {
   eventData,
   EventDataContent,
 } from "@/data/dataAndTypes";
-
 import ModularContentBlock from "@/components/ModularContentBlock";
+import HalfModules from "@/components/HalfModules";
+import { ModularContentBlockProps } from "@/data/dataAndTypes";
 
+interface WhatsOnProps {
+  isDoubles: boolean;
+}
 
-
-export default function Artists(): React.ReactElement {
-
+export default function WhatsOn(props: WhatsOnProps): React.ReactElement {
+  // Destructuring Props
+  const { isDoubles }: { isDoubles: boolean } = props;
 
   // Generation main
   const generateContentModules = (
@@ -24,14 +28,18 @@ export default function Artists(): React.ReactElement {
         const isOdd = (num: number): boolean => {
           return num % 2 !== 0;
         };
+        const whatsProps: ModularContentBlockProps = {
+          key: `modular-block-${eventImageUrls}-${index}`,
+          isOdd: isOdd(index),
+          isHome: false,
+          imageUrlArray: imageUrlArray,
+          rightHandContent: generateTextContent(index),
+        };
 
-        return (
-          <ModularContentBlock
-            isOdd={isOdd(index)}
-            isHome={false}
-            imageUrlArray={imageUrlArray}
-            rightHandContent={generateTextContent(index)}
-          />
+        return isDoubles ? (
+          <ModularContentBlock {...whatsProps} />
+        ) : (
+          <HalfModules {...whatsProps} />
         );
       }
     );
@@ -92,7 +100,7 @@ export default function Artists(): React.ReactElement {
       return description.map(
         (paragraph: string, index: number): JSX.Element => {
           return (
-            <p key={index} className="inter copy">
+            <p key={`paragraph-${index}`} className="inter copy">
               {paragraph}
             </p>
           );
@@ -117,11 +125,9 @@ export default function Artists(): React.ReactElement {
     JSX.Element[] | null,
     React.Dispatch<React.SetStateAction<JSX.Element[] | null>>
   ] = useState<JSX.Element[] | null>(null);
-
   useEffect((): void => {
-    if (generatedModules) return;
     setGeneratedModules(generateContentModules(eventImageUrls));
-  }, [generatedModules, eventImageUrls]);
+  }, [generatedModules, eventImageUrls, isDoubles]);
 
   return <>{generatedModules}</>;
 }

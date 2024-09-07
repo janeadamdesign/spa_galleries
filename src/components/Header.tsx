@@ -5,6 +5,29 @@ import React, { useEffect, useState } from "react";
 import SideContent from "./SideContent";
 
 export default function Header(): React.ReactElement {
+  // Doubles checking
+
+  const [isSmall, setIsSmall]: [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+  ] = useState<boolean>(true);
+  useEffect((): (() => void) => {
+    const checkWidth = (): void => {
+      const width: number = window.innerWidth;
+      if (width < 700) {
+        setIsSmall(true);
+      } else setIsSmall(false);
+    };
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return (): void => {
+      window.removeEventListener("resize", checkWidth);
+    };
+  }, []);
+
+
+
+
   // Navlink Function
   const [sideContentState, setSideContentState]: [
     number,
@@ -108,17 +131,18 @@ export default function Header(): React.ReactElement {
         <p className="header-title">The Spa Galleries</p>
         {injectNavlinks(navlinks)}
       </div>
+      
       <div id="logo-header-overlay" className="full-dims flex row center">
         <div
           id="logo-container"
           className={logoRotate ? "rotate-logo" : "unrotate-logo"}
         >
-          <img
-            src={"/pantiles.png"}
+          {!isSmall && <img
+            src="/pantiles.png"
             alt="spa-logo"
             id="logo-image"
             className="full-dims"
-          />
+          />}
         </div>
       </div>
 

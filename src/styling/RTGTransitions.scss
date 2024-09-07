@@ -1,4 +1,7 @@
+// Deprecated in favour of FM AnimatePresence
+
 // RTG Classes
+
 .photo-fade {
   position: relative;
 }
@@ -28,7 +31,6 @@
 .photo-fade-exit.photo-fade-exit-active,
 .photo-fade-exit-done {
   opacity: 0;
-  //transform: translateX(-50px);
 }
 
 
@@ -79,7 +81,7 @@
 .fade-simple-exit-done,
 .fade-simple-enter,
 .fade-simple-enter-active {
-  transition: 0.25s linear;
+  transition: 2s linear;
 }
 .fade-simple-appear,
 .fade-simple-enter {
@@ -94,7 +96,7 @@
 }
 .fade-simple-exit.fade-simple-exit-active,
 .fade-simple-exit-done {
-  opacity: 1;
+  opacity: 0;
 }
 
 
@@ -120,10 +122,10 @@
 
 .clip-path-appear.clip-path-appear-active,
 .clip-path-enter.clip-path-enter-active {
-  clip-path: inset(0 0 0 0); /* Fully revealed */
+  clip-path: inset(0 0 0 0);
 }
 .clip-path-exit {
-  clip-path: inset(0 0 0 0); /* Fully revealed */
+  clip-path: inset(0 0 0 0);
 }
 .clip-path-exit.clip-path-exit-active,
 .clip-path-exit-done {
