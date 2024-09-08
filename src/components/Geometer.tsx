@@ -18,37 +18,12 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
   const mountRef: React.RefObject<HTMLDivElement | null> =
     useRef<HTMLDivElement | null>(null);
 
-  useEffect((): void => {
-    console.log(
-      `GEOMETER component has registered horizontal changed to ${isHorizontal}`
-    );
-  }, [isHorizontal]);
-
-  const [sizeConst, setSizeConst]: [
-    number | null,
-    React.Dispatch<React.SetStateAction<number | null>>
-  ] = useState<number | null>(null);
-  useEffect((): void => {
-    if (!mountRef.current) {
-      console.log(`no mountref current`);
-      return;
-    }
-    const divHeight: number = mountRef.current.clientHeight;
-    const divWidth: number = mountRef.current.clientWidth;
-    if (pageState === 3) {
-      if (isHorizontal) setSizeConst(divHeight);
-      else setSizeConst(divWidth);
-    } else setSizeConst(divHeight);
-  }, [isHorizontal]);
-
   // Gigachad useEffect to establish the whole scene
   useEffect((): void | (() => void) => {
     if (!mountRef.current) return;
-    if (!sizeConst) {
-      console.log("sizeconst null");
-      return;
-    }
-
+    const divHeight: number = mountRef.current.clientHeight;
+    const divWidth: number = mountRef.current.clientWidth;
+    const sizeConst: number = Math.min(divHeight, divWidth);
     // Declarations to establish scene
     const scene: THREE.Scene = new THREE.Scene();
     const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
@@ -210,8 +185,10 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
 
     // Handle resizing
     const handleResize = (): void => {
-      renderer.setSize(sizeConst, sizeConst);
-      camera.aspect = sizeConst / sizeConst;
+      if (!mountRef.current) return;
+      const resize: number = Math.min(mountRef.current.clientHeight, mountRef.current.clientWidth);
+      renderer.setSize(resize, resize);
+      camera.aspect = 1;
       camera.updateProjectionMatrix();
     };
     window.addEventListener("resize", handleResize);
@@ -224,7 +201,7 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
       scene.remove(shape);
       renderer.dispose();
     };
-  }, [pageState, sizeConst, isHorizontal]);
+  }, [pageState, isHorizontal]);
 
   const id: string = pageState === 3 ? "white-mount" : "three-mount";
 
