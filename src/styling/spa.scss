@@ -139,22 +139,36 @@ body {
 
 body {
   background: $background;
+  //overflow: hidden;
 }
 
 // Z-indices
 
 #space {
-  z-index: 1;
-  // min-height: calc(100vh - 10rem);
+  position: relative;
+  z-index: 0;
+  width: 100%;
 }
 
 #home {
   background: $background;
-  min-height: 100vh;
-  min-height: 100dvh;
+  //min-height: 100vh;
+  //min-height: 100dvh;
   z-index: 0;
   position: relative;
+  top: 0;
+  left: 0;
 }
+
+.home-large-offset {
+  min-height: calc(100vh - min(40vh, 25rem) - 10rem);
+  min-height: calc(100dvh - min(40dvh, 25rem) - 10rem);
+}
+.home-small-offset{
+  min-height: calc(100vh - min(30vh, 18.75rem)  - 10rem);
+  min-height: calc(100dvh - min(30dvh, 18.75rem)  - 10rem);
+}
+
 
 #subheader {
   position: fixed;
@@ -225,21 +239,20 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 33vh;
-  height: 33dvh;
-  width: 33vw;
   background: $footerBackground;
   border-bottom: 0.05rem solid black;
 }
 
-#footer,
-#footer-small {
-  position: relative;
-  background: $footerBackground;
-  width: 100%;
-  transition: 0.5s;
-  transition-delay: 0.75s;
-  overflow: hidden;
+.cd-horizontal {
+  height: 33vh;
+  height: 33dvh;
+  width: 33vw;
+}
+
+.cd-vertical {
+  height: 25vh;
+  height: 25dvh;
+  width: 50vw;
 }
 
 #spa-nav {
@@ -423,14 +436,28 @@ body {
   left: 50%;
 }
 
+#footer,
+#footer-small {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(100%);
+  background: $footerBackground;
+  width: 100%;
+  transition: 0.5s;
+  transition-delay: 0.75s;
+  overflow: hidden;
+}
+
 #footer {
   height: 40vh;
   height: 40dvh;
+  max-height: 25rem;
 }
 
 #footer-small {
   height: 30vh;
   height: 30dvh;
+  max-height: 18.75rem;
 }
 
 #email-subscription {
@@ -447,6 +474,13 @@ body {
 
 #subscribe-button {
   background: $background;
+}
+
+#shake-ref-container {
+  margin: 0;
+  height: 2.5rem;
+  border-radius: 0;
+  width: 100%;
 }
 
 #email-input,
@@ -561,9 +595,6 @@ body {
   position: relative;
 }
 
-
-
-
 .wrapped {
   justify-content: space-around;
   align-items: flex-start;
@@ -577,7 +608,7 @@ body {
   font-size: max(min(2rem, 1.8vw), 1.5rem);
 }
 
-.half-content-container .copy  {
+.half-content-container .copy {
   font-size: 1rem;
   margin: 1rem 0;
 }
@@ -587,13 +618,10 @@ body {
 .copy-home {
   margin: min(1rem, 1vw) 0;
   font-size: max(0.95rem, min(1rem, 1.25vw));
-
 }
 
-
-
-
-.copy, .copy-home {
+.copy,
+.copy-home {
   font-weight: 200;
   text-align: justify;
 }
@@ -602,12 +630,11 @@ body {
   width: 100%;
 }
 
-
-
 //
 
 #blank-space-container {
   padding: 2rem;
+  position: relative;
 }
 
 #blank-space {
@@ -650,9 +677,13 @@ body {
   box-shadow: 0rem 0.75vh $boxShadowBlur rgba(0, 0, 0, 0.4);
 }
 
+
+#three-mount, #white-mount {
+  overflow:hidden;
+}
+
 .clickable:hover {
   cursor: pointer;
-  // box-shadow: 0rem 1vh 1.5rem rgb(255, 209, 217);
   box-shadow: 0rem 1vh $boxShadowBlur $doubleContentGrey;
 }
 

@@ -6,7 +6,24 @@ import { motion, AnimatePresence, easeInOut, easeOut } from "framer-motion";
 // Local imports
 import { ParagraphAnimate } from "@/data/dataAndTypes";
 
-export default function Footer(): React.ReactElement {
+interface FooterProps {
+  submission: boolean;
+  setSubmission: React.Dispatch<React.SetStateAction<boolean>>;
+  isHorizontal: boolean;
+}
+
+export default function Footer(props: FooterProps): React.ReactElement {
+  // Destructuring props
+  const {
+    submission,
+    setSubmission,
+    isHorizontal,
+  }: {
+    submission: boolean;
+    setSubmission: React.Dispatch<React.SetStateAction<boolean>>;
+    isHorizontal: boolean;
+  } = props;
+
   // Controlled component
   const [email, setEmail]: [
     string,
@@ -20,6 +37,7 @@ export default function Footer(): React.ReactElement {
   };
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === "Enter" || e.key === "Return") {
+      e.preventDefault();
       handleEmailSubmit();
     }
   };
@@ -32,10 +50,7 @@ export default function Footer(): React.ReactElement {
   const isValid = (): boolean => {
     return validator.isEmail(email);
   };
-  const [submission, setSubmission]: [
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>
-  ] = useState<boolean>(false);
+
   const handleEmailSubmit = (): void => {
     if (!isValid()) {
       setIsInvalidCounter((prev: number): number => prev + 1);
@@ -55,10 +70,10 @@ export default function Footer(): React.ReactElement {
     useRef<HTMLInputElement | null>(null);
   useEffect((): void | (() => void) => {
     if (isInvalidCounter === 0 || !shakeRef.current) return;
-    shakeRef.current.className = `footer-text inter shake`;
+    shakeRef.current.className = `shake flex column center`;
     const shakeTimer: NodeJS.Timeout | number = setTimeout((): void => {
       if (!shakeRef.current) return;
-      shakeRef.current.className = "footer-text inter";
+      shakeRef.current.className = "flex column center";
     }, 200);
     return (): void => {
       clearTimeout(shakeTimer);
@@ -83,7 +98,7 @@ export default function Footer(): React.ReactElement {
   useEffect((): (() => void) => {
     const dialogTimer: NodeJS.Timeout | number = setTimeout((): void => {
       if (dialog) {
-        setDialog(false);
+         setDialog(false);
       }
     }, 2000);
     return (): void => {
@@ -92,7 +107,6 @@ export default function Footer(): React.ReactElement {
   }, [dialog]);
 
   // Differential logic to disable scroll
-
   useEffect((): void | (() => void) => {
     const preventScroll = (e: WheelEvent | TouchEvent): void =>
       e.preventDefault();
@@ -111,63 +125,69 @@ export default function Footer(): React.ReactElement {
   }, [dialog]);
 
   return (
-    <div id={submission ? "footer-small" : "footer"}>
-      <div id="email-subscription" className="flex column around">
-        <motion.p className="inter footer-text" {...paragraphAnimate}>
-          REGISTER FOR EMAIL UPDATES
-        </motion.p>
-        <motion.p className="inter footer-text" {...paragraphAnimate}>
-          Be the first to hear about the latest Spa Galleries events and news{" "}
-        </motion.p>
+    <>
+      <div id={submission ? "footer-small" : "footer"}>
+        <div id="email-subscription" className="flex column around">
+          <motion.p className="inter footer-text" {...paragraphAnimate}>
+            REGISTER FOR EMAIL UPDATES
+          </motion.p>
+          <motion.p className="inter footer-text" {...paragraphAnimate}>
+            Be the first to hear about the latest Spa Galleries events and news{" "}
+          </motion.p>
 
-        <motion.input
-          ref={shakeRef as React.RefObject<HTMLInputElement>}
-          id="email-input"
-          initial={{ width: "50%", transform: "translateY(0%)" }}
-          animate={
-            submission
-              ? {
-                  width: "0",
-                  transform: "translateY(-75%)",
-                }
-              : {
-                  width: "50%",
-                  transform: "translateY(0%",
-                }
-          }
-          transition={{
-            width: {
-              type: "spring",
-              stiffness: 400,
-              damping: 50,
-            },
-            transform: {
-              ease: easeInOut,
-              duration: 0.5,
-              delay: 0.5,
-            },
-          }}
-          placeholder={submission ? "" : "type your email"}
-          className="footer-text inter"
-          value={email}
-          onChange={handleEmailChange}
-          onKeyPress={handleKeyPress}
-        />
-        <button
-          id={submission ? "subscribed-button" : "subscribe-button"}
-          className="flex column center"
-          onClick={handleEmailSubmit}
-        >
-          <p className="footer-text inter">
-            {submission ? "Subscribed" : "Subscribe"}
-          </p>
-        </button>
+          <div
+            className="flex column center"
+            id="shake-ref-container"
+            ref={shakeRef as React.RefObject<HTMLInputElement>}
+          >
+            <motion.input
+              id="email-input"
+              initial={{ width: "50%", transform: "translateY(0%)" }}
+              animate={
+                submission
+                  ? {
+                      width: "0",
+                      transform: "translateY(-75%)",
+                    }
+                  : {
+                      width: "50%",
+                      transform: "translateY(0%",
+                    }
+              }
+              transition={{
+                width: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 50,
+                },
+                transform: {
+                  ease: easeInOut,
+                  duration: 0.5,
+                  delay: 0.5,
+                },
+              }}
+              placeholder={submission ? "" : "type your email"}
+              className="footer-text inter"
+              value={email}
+              onChange={handleEmailChange}
+              onKeyPress={handleKeyPress}
+            />
+          </div>
+          <button
+            id={submission ? "subscribed-button" : "subscribe-button"}
+            className="flex column center"
+            onClick={handleEmailSubmit}
+          >
+            <p className="footer-text inter">
+              {submission ? "Subscribed" : "Subscribe"}
+            </p>
+          </button>
+        </div>
+        <div id="copyright" className="flex row center inter footer-text">
+          {" "}
+          <p>© 2024 THE SPA GALLERIES</p>
+        </div>
       </div>
-      <div id="copyright" className="flex row center inter footer-text">
-        {" "}
-        <p>© 2024 THE SPA GALLERIES</p>
-      </div>
-
       <AnimatePresence>
         {dialog && (
           <motion.div
@@ -187,7 +207,7 @@ export default function Footer(): React.ReactElement {
             <div id="screen-dim" />
             <motion.div
               id="compulsory-dialog"
-              className="flex column around"
+              className={`flex column around ${isHorizontal ? "cd-horizontal" : "cd-vertical"}`}
               initial={{ maxHeight: "0%" }}
               animate={{ maxHeight: "100%" }}
               transition={{
@@ -205,6 +225,6 @@ export default function Footer(): React.ReactElement {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }

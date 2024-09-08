@@ -49,7 +49,6 @@ export default function Home() {
     }
   }, [imagesPreload]);
 
-  
   // Doubles checking
 
   const [isDoubles, setIsDoubles]: [
@@ -81,8 +80,8 @@ export default function Home() {
   };
   const spaContentComponents: { [key: number]: React.ReactElement } = {
     0: <HomeContent isDoubles={isDoubles} />,
-    1: <Artists isDoubles={isDoubles}  />,
-    2: <WhatsOn isDoubles={isDoubles}  />,
+    1: <Artists isDoubles={isDoubles} />,
+    2: <WhatsOn isDoubles={isDoubles} />,
   };
 
   // Loading Scene
@@ -107,7 +106,6 @@ export default function Home() {
     };
   }, [introduction]);
 
-
   // Scroll to top logic
   useEffect((): (() => void) => {
     const scrollTimer: NodeJS.Timeout | number = setTimeout((): void => {
@@ -122,15 +120,41 @@ export default function Home() {
     };
   }, [pageState]);
 
+  // Submission state
+  const [submission, setSubmission]: [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+  ] = useState<boolean>(false);
 
-  
+  // Horizontalis
+  const [isHorizontal, setIsHorizontal]: [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+  ] = useState<boolean>(true);
+  useEffect((): (() => void) => {
+    const checkHorizontal = (): void => {
+      if (window.innerWidth > window.innerHeight) {
+        setIsHorizontal(true);
+      } else setIsHorizontal(false);
+    };
+    checkHorizontal();
+    window.addEventListener("resize", checkHorizontal);
+    return (): void => {
+      window.removeEventListener("resize", checkHorizontal);
+    };
+  }, []);
+
 
   return (
     <>
-      <div id="home">
+      <div
+        id="home"
+        className={`full-dims home-${submission ? "small" : "large"}-offset`}
+      >
+        {" "}
         <Header />
         <SubHeader pageState={pageState} setPageState={setPageState} />
-        {  !introduction && isLoaded && (
+        {!introduction && isLoaded && (
           <>
             <div id="space">
               <AnimatePresence mode="wait">
@@ -141,18 +165,22 @@ export default function Home() {
             </div>
             <div id="blank-space-container">
               <div id="blank-space" className="flex row center">
-                <Geometer pageState={pageState} />
+                <Geometer pageState={pageState} isHorizontal={isHorizontal} />
               </div>
             </div>
-            <Footer />
+            <Footer
+              submission={submission}
+              setSubmission={setSubmission}
+              isHorizontal={isHorizontal}
+            />
           </>
         )}
       </div>
       {
-       
         <WhiteScreen
           introduction={introduction}
           setIntroduction={setIntroduction}
+          isHorizontal={isHorizontal}
         />
       }
     </>

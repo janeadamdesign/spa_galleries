@@ -1,30 +1,59 @@
 // Package imports
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 interface GeometerProps {
   pageState: number;
+  isHorizontal: boolean;
 }
 
 export default function Geometer(props: GeometerProps): React.ReactElement {
+  //Destructuring props
+  const {
+    pageState,
+    isHorizontal,
+  }: { pageState: number; isHorizontal: boolean } = props;
+
   // Reference the mount node
   const mountRef: React.RefObject<HTMLDivElement | null> =
     useRef<HTMLDivElement | null>(null);
 
-  //Destructuring props
-  const { pageState }: { pageState: number } = props;
+  useEffect((): void => {
+    console.log(
+      `GEOMETER component has registered horizontal changed to ${isHorizontal}`
+    );
+  }, [isHorizontal]);
+
+  const [sizeConst, setSizeConst]: [
+    number | null,
+    React.Dispatch<React.SetStateAction<number | null>>
+  ] = useState<number | null>(null);
+  useEffect((): void => {
+    if (!mountRef.current) {
+      console.log(`no mountref current`);
+      return;
+    }
+    const divHeight: number = mountRef.current.clientHeight;
+    const divWidth: number = mountRef.current.clientWidth;
+    if (pageState === 3) {
+      if (isHorizontal) setSizeConst(divHeight);
+      else setSizeConst(divWidth);
+    } else setSizeConst(divHeight);
+  }, [isHorizontal]);
 
   // Gigachad useEffect to establish the whole scene
   useEffect((): void | (() => void) => {
     if (!mountRef.current) return;
-
-    const divHeight: number = mountRef.current.clientHeight;
+    if (!sizeConst) {
+      console.log("sizeconst null");
+      return;
+    }
 
     // Declarations to establish scene
     const scene: THREE.Scene = new THREE.Scene();
     const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
       75,
-      divHeight / divHeight,
+      sizeConst / sizeConst,
       0.1,
       1000
     );
@@ -34,7 +63,7 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
     });
     // Situating scene
 
-    renderer.setSize(divHeight, divHeight);
+    renderer.setSize(sizeConst, sizeConst);
     mountRef.current.appendChild(renderer.domElement);
 
     // Geometry & textures
@@ -171,6 +200,9 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
         shape.rotation.x += speed;
       } else shape.rotation.x += speed / 2;
       shape.rotation.y += speed;
+      if (!isHorizontal && pageState === 3) {
+        shape.rotation.z = Math.PI / 2;
+      }
       renderer.setClearColor(0x343434, 0);
       renderer.render(scene, camera);
     };
@@ -178,8 +210,8 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
 
     // Handle resizing
     const handleResize = (): void => {
-      renderer.setSize(divHeight, divHeight);
-      camera.aspect = divHeight / divHeight;
+      renderer.setSize(sizeConst, sizeConst);
+      camera.aspect = sizeConst / sizeConst;
       camera.updateProjectionMatrix();
     };
     window.addEventListener("resize", handleResize);
@@ -192,7 +224,7 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
       scene.remove(shape);
       renderer.dispose();
     };
-  }, [pageState]);
+  }, [pageState, sizeConst, isHorizontal]);
 
   const id: string = pageState === 3 ? "white-mount" : "three-mount";
 

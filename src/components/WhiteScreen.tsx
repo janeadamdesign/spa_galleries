@@ -8,6 +8,7 @@ import Geometer from "./Geometer";
 interface WhiteScreenProps {
   introduction: boolean;
   setIntroduction: React.Dispatch<React.SetStateAction<boolean>>;
+  isHorizontal: boolean;
 }
 
 export default function WhiteScreen(
@@ -17,10 +18,15 @@ export default function WhiteScreen(
   const {
     introduction,
     setIntroduction,
+    isHorizontal,
   }: {
     introduction: boolean;
     setIntroduction: React.Dispatch<React.SetStateAction<boolean>>;
+    isHorizontal: boolean;
   } = props;
+
+
+
 
   // Clickable logic
   const [isClickable, setIsClickable]: [
@@ -32,7 +38,9 @@ export default function WhiteScreen(
     const clickTimer: NodeJS.Timeout | number = setTimeout((): void => {
       setIsClickable(true);
     }, 4000);
-    return (): void => {};
+    return (): void => {
+      clearTimeout(clickTimer)
+    };
   }, []);
   const isClickableAttributes: {} = {
     className: "clickable",
@@ -75,7 +83,7 @@ export default function WhiteScreen(
           id="intro-geometry-container"
           {...(isClickable && isClickableAttributes)}
         >
-          <Geometer pageState={3} />
+          <Geometer pageState={3} isHorizontal={isHorizontal} />
         </div>
       </motion.div>
     </motion.div>
