@@ -12,14 +12,21 @@ import {
 } from "@/data/dataAndTypes";
 
 interface SideContentProps {
-  state: number;
+  sideContentState: number;
+  setSideContentState: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function SideContent(
   props: SideContentProps
 ): React.ReactElement {
   // Destructuring props
-  const { state }: { state: number } = props;
+  const {
+    sideContentState,
+    setSideContentState,
+  }: {
+    sideContentState: number;
+    setSideContentState: React.Dispatch<React.SetStateAction<number>>;
+  } = props;
   const [animateValue, setAnimateValue]: [
     number,
     React.Dispatch<React.SetStateAction<number>>
@@ -38,11 +45,24 @@ export default function SideContent(
   const animate: { transform: string } = {
     transform: `translateX(${animateValue}%)`,
   };
+  const openingTransition: { [key: string]: number | string } = {
+    type: "spring",
+    stiffness: 300,
+    damping: 15,
+    mass: 1,
+  };
+  const closingTransition: { [key: string]: number | string } = {
+    type: "spring",
+    stiffness: 300,
+    damping: 20,
+    mass: 0.5,
+  }; 
+
   useEffect((): void => {
-    if (state === 0) {
+    if (sideContentState === 0) {
       setAnimateValue(100);
     } else setAnimateValue(50);
-    switch (state) {
+    switch (sideContentState) {
       case 0:
         setPaneInjectionArgument(null);
         break;
@@ -53,7 +73,7 @@ export default function SideContent(
         setPaneInjectionArgument(openingTimes);
         break;
     }
-  }, [state]);
+  }, [sideContentState]);
 
   // Injected Pane Data
   const injectPaneData = (
@@ -234,11 +254,17 @@ export default function SideContent(
   // Animation values for Framer Motion
   const circleTransition = { type: "spring", stiffness: 1000, damping: 200 };
 
+  // Close UI Logic
+  const [crossHovered, setCrossHovered]: [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+  ] = useState<boolean>(false);
+
   return (
     <motion.div
       initial={initial}
       animate={animate}
-      transition={{ type: "spring", stiffness: 150, damping: 10 }}
+      transition={sideContentState === 0 ? {...closingTransition} : {...openingTransition}}
       id="side-pane"
     >
       <div
@@ -279,6 +305,32 @@ export default function SideContent(
         />
       </div>
       <div id="injected-pane" className="full-dims">
+        <div id="ui-cross-container">
+          <div id="ui-relative-layer" className="full-dims flex column center">
+            <motion.img
+              id="ui-cross"
+              src="/ui_close_black.png"
+              className="full-dims"
+              onMouseOver={(): void => {
+                setCrossHovered(true);
+              }}
+              onMouseLeave={(): void => {
+                setCrossHovered(false);
+              }}
+              initial={{ transform: `scale(0.9)` }}
+              animate={{ transform: `scale(${crossHovered ? 1 : 0.9})` }}
+              transition={{
+                type: "spring",
+                stiffness: 1000,
+                damping: 15,
+                mass: 2,
+              }}
+              onClick={(): void => {
+                setSideContentState(0);
+              }}
+            />
+          </div>
+        </div>
         <div id="fifty-container" className="flex column">
           {injectPaneData(paneInjectionArgument)}
         </div>

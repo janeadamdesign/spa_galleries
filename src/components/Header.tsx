@@ -146,7 +146,7 @@ export default function Header(): React.ReactElement {
         </div>
       </div>
 
-      <SideContent state={sideContentState} />
+      <SideContent sideContentState={sideContentState} setSideContentState={setSideContentState} />
     </>
   );
 }

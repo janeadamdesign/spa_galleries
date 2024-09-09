@@ -35,6 +35,8 @@ export default function Home() {
     ...eventImageUrls.flat(),
     ...artistUrlsCombined.flat(),
     "/pantiles.png",
+    "/ui_close_red.png",
+    "/ui_close_black.png",
   ];
   const [isLoaded, setIsLoaded]: [
     boolean,
@@ -144,7 +146,6 @@ export default function Home() {
     };
   }, []);
 
-
   return (
     <>
       <div
@@ -156,13 +157,15 @@ export default function Home() {
         <SubHeader pageState={pageState} setPageState={setPageState} />
         {!introduction && isLoaded && (
           <>
-            <div id="space">
-              <AnimatePresence mode="wait">
-                <motion.div key={pageState} {...spaContentAnimation}>
-                  {spaContentComponents[pageState]}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            {
+              <div id="space">
+                <AnimatePresence mode="wait">
+                  <motion.div key={pageState} {...spaContentAnimation}>
+                    {spaContentComponents[pageState]}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            }
             <div id="blank-space-container">
               <div id="blank-space" className="flex row center">
                 <Geometer pageState={pageState} isHorizontal={isHorizontal} />

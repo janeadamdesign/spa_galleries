@@ -129,5 +129,5 @@ export default function WhatsOn(props: WhatsOnProps): React.ReactElement {
     setGeneratedModules(generateContentModules(eventImageUrls));
   }, [generatedModules, eventImageUrls, isDoubles]);
 
-  return <>{generatedModules}</>;
+  return <div className="full-dims" style={{minHeight: `calc(100vh)`}}>{generatedModules}</div>;
 }

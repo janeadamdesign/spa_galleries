@@ -107,16 +107,18 @@
 .footer-text {
   font-weight: 200;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .dialog-text {
   font-weight: 200;
   font-size: 1rem;
+  text-align: center;
 }
 
 // variables
 
-$green: #3effb5;
+$green:  rgb(62, 255, 181);
 $beige: rgb(255, 234, 238);
 $background: rgb(250, 250, 250);
 $footerBackground: rgba(234, 230, 224);
@@ -152,23 +154,21 @@ body {
 
 #home {
   background: $background;
-  //min-height: 100vh;
-  //min-height: 100dvh;
   z-index: 0;
   position: relative;
   top: 0;
   left: 0;
+
 }
 
 .home-large-offset {
   min-height: calc(100vh - min(40vh, 25rem) - 10rem);
   min-height: calc(100dvh - min(40dvh, 25rem) - 10rem);
 }
-.home-small-offset{
-  min-height: calc(100vh - min(30vh, 18.75rem)  - 10rem);
-  min-height: calc(100dvh - min(30dvh, 18.75rem)  - 10rem);
+.home-small-offset {
+  min-height: calc(100vh - min(30vh, 18.75rem) - 10rem);
+  min-height: calc(100dvh - min(30dvh, 18.75rem) - 10rem);
 }
-
 
 #subheader {
   position: fixed;
@@ -179,9 +179,12 @@ body {
   justify-content: flex-start;
   padding-left: 1rem;
   z-index: 1;
-  background: $background;
+  background: rgba($background, 0.99);
+  backdrop-filter: blur(20px); 
+
 }
 
+$sidePaneTransparencyConstant: 0.95;
 #side-pane {
   position: fixed;
   top: 0;
@@ -189,12 +192,37 @@ body {
   height: 100vh;
   height: 100dvh;
   width: max(50%, 50rem);
-  background: linear-gradient(to right, $green, $background);
-  // background: $green;
+  background: linear-gradient(to right, rgba($green, $sidePaneTransparencyConstant), rgba($background, $sidePaneTransparencyConstant));
   z-index: 2;
   border-left: 0.05rem solid black;
   overflow: hidden;
+  backdrop-filter: blur(20px); 
+
 }
+
+#ui-cross-container{
+  position:absolute;
+  right: 50%;
+  top: 6rem;
+  width: 3rem;
+  height: 3rem; 
+  transform: translate(-10%, 10%);
+  z-index:1;
+}
+
+#ui-relative-layer {
+  aspect-ratio: 1/1;
+  position: relative;
+  padding: 25%;
+  opacity: 0.90;
+}
+
+
+#ui-cross:hover {
+  cursor:pointer;
+}
+
+
 
 #logo-header-overlay {
   position: fixed;
@@ -214,6 +242,7 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 4;
+  max-width: min(100vw, 100%);
 }
 
 #screen {
@@ -231,6 +260,7 @@ body {
   height: 100dvh;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px); 
 }
 
 #compulsory-dialog {
@@ -241,6 +271,7 @@ body {
   transform: translate(-50%, -50%);
   background: $footerBackground;
   border-bottom: 0.05rem solid black;
+  min-width: 25rem;
 }
 
 .cd-horizontal {
@@ -304,6 +335,11 @@ body {
   height: calc(100% - 6rem);
   align-items: center;
   justify-content: center;
+  z-index: 0;
+}
+
+.fields-container{
+
 }
 
 .fields-content {
@@ -311,6 +347,7 @@ body {
   //text-shadow: 0.025rem 0.025rem 0px $beige;
   font-size: $navFontSize;
   font-weight: 200;
+
 }
 
 .fields-container > * {
@@ -452,12 +489,15 @@ body {
   height: 40vh;
   height: 40dvh;
   max-height: 25rem;
+  min-height: 350px;
+
 }
 
 #footer-small {
   height: 30vh;
   height: 30dvh;
   max-height: 18.75rem;
+  min-height: 250px;
 }
 
 #email-subscription {
@@ -546,6 +586,7 @@ body {
 .spa-content {
   margin-top: 10rem;
   box-shadow: 0rem 0.75vh $boxShadowBlur rgba(0, 0, 0, 0.4);
+
 }
 
 .half-photo-container,
@@ -558,9 +599,8 @@ body {
   max-width: $contentWidth;
 }
 .half-content-container {
-  aspect-ratio: 1/2;
   width: 100%;
-  max-width: 40rem;
+  max-width: min(40rem, min(100vw, 100%));
   margin: auto;
 }
 
@@ -569,6 +609,7 @@ body {
   overflow: hidden;
 }
 .half-photo-container {
+  aspect-ratio: 1/1;
   height: 50%;
   width: 100%;
 }
@@ -579,19 +620,19 @@ body {
 
 .spa-content-container .home-text-container {
   width: 50%;
+  height: 100%;
+  max-height: 40rem;
+
 }
 .half-content-container .home-text-container {
   width: 100%;
 }
 
 .home-text-container {
-  height: 100%;
-  max-height: 40rem;
   padding: 2rem;
   justify-content: space-between;
   align-items: flex-end;
   overflow: hidden;
-  // -ms-overflow-style: -ms-autohiding-scrollbar;
   position: relative;
 }
 
@@ -656,13 +697,16 @@ body {
 }
 
 #white-screen {
+  overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
   background: $background;
-  min-height: 100vh;
-  min-width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  max-width: 100vw;
 }
 #intro-geometry-container {
   position: absolute;
@@ -677,9 +721,9 @@ body {
   box-shadow: 0rem 0.75vh $boxShadowBlur rgba(0, 0, 0, 0.4);
 }
 
-
-#three-mount, #white-mount {
-  overflow:hidden;
+#three-mount,
+#white-mount {
+  overflow: hidden;
 }
 
 .clickable:hover {
@@ -689,6 +733,7 @@ body {
 
 #artist-content-container {
   margin-top: 10rem;
+  overflow: hidden;
 }
 .artist-portrait {
   aspect-ratio: 3/4;
@@ -696,7 +741,7 @@ body {
   background: linear-gradient(to top, $doubleContentGrey, $background);
   overflow: hidden;
   box-shadow: 0rem 0.5vh $boxShadowBlur rgba(0, 0, 0, 0.4);
-  max-height: 40rem;
+  max-height: min(40rem, calc(133vw));
 }
 .artist-photo-container {
   overflow: hidden;

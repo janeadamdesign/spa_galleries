@@ -1,5 +1,5 @@
 // Package imports
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 interface GeometerProps {
@@ -23,7 +23,8 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
     if (!mountRef.current) return;
     const divHeight: number = mountRef.current.clientHeight;
     const divWidth: number = mountRef.current.clientWidth;
-    const sizeConst: number = Math.min(divHeight, divWidth);
+    const sizeConst: number = pageState === 3 ? Math.min(divHeight, divWidth) : divHeight;
+
     // Declarations to establish scene
     const scene: THREE.Scene = new THREE.Scene();
     const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
@@ -186,11 +187,16 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
     // Handle resizing
     const handleResize = (): void => {
       if (!mountRef.current) return;
-      const resize: number = Math.min(mountRef.current.clientHeight, mountRef.current.clientWidth);
+      let resize: number | null;
+      if (pageState === 3){
+        resize = Math.min(mountRef.current.clientHeight, mountRef.current.clientWidth);
+      }
+      else resize = mountRef.current.clientHeight;
       renderer.setSize(resize, resize);
       camera.aspect = 1;
       camera.updateProjectionMatrix();
     };
+
     window.addEventListener("resize", handleResize);
 
     return (): void => {
