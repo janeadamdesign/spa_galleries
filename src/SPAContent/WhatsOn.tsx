@@ -29,17 +29,19 @@ export default function WhatsOn(props: WhatsOnProps): React.ReactElement {
           return num % 2 !== 0;
         };
         const whatsProps: ModularContentBlockProps = {
-          key: `modular-block-${eventImageUrls}-${index}`,
           isOdd: isOdd(index),
-          isHome: false,
           imageUrlArray: imageUrlArray,
           rightHandContent: generateTextContent(index),
         };
 
         return isDoubles ? (
-          <ModularContentBlock {...whatsProps} />
+          <React.Fragment key={`modular-block-${eventImageUrls}-${index}`}>
+            <ModularContentBlock {...whatsProps} />
+          </React.Fragment>
         ) : (
-          <HalfModules {...whatsProps} />
+          <React.Fragment key={`modular-block-${eventImageUrls}-${index}`}>
+            <HalfModules {...whatsProps} />
+          </React.Fragment>
         );
       }
     );
@@ -127,7 +129,11 @@ export default function WhatsOn(props: WhatsOnProps): React.ReactElement {
   ] = useState<JSX.Element[] | null>(null);
   useEffect((): void => {
     setGeneratedModules(generateContentModules(eventImageUrls));
-  }, [generatedModules, eventImageUrls, isDoubles]);
+  }, [eventImageUrls, isDoubles]);
 
-  return <div className="full-dims" style={{minHeight: `calc(100vh)`}}>{generatedModules}</div>;
+  return (
+    <div className="full-dims" style={{ minHeight: `calc(100vh)` }}>
+      {generatedModules}
+    </div>
+  );
 }

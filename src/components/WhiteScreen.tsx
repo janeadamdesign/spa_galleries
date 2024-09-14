@@ -37,7 +37,7 @@ export default function WhiteScreen(
     if (isClickable) return;
     const clickTimer: NodeJS.Timeout | number = setTimeout((): void => {
       setIsClickable(true);
-    }, 4000);
+    }, 2000);
     return (): void => {
       clearTimeout(clickTimer)
     };

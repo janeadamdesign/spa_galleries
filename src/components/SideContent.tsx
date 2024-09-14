@@ -56,7 +56,7 @@ export default function SideContent(
     stiffness: 300,
     damping: 20,
     mass: 0.5,
-  }; 
+  };
 
   useEffect((): void => {
     if (sideContentState === 0) {
@@ -95,7 +95,7 @@ export default function SideContent(
         }
       );
       fields.push(
-        <p className="fields-content inter flex row between">
+        <p key="mon" className="fields-content inter flex row between">
           <span style={{ fontWeight: 400 }}>Mon</span>
           <span className="italic">{typedData.monSun}</span>
         </p>
@@ -104,7 +104,7 @@ export default function SideContent(
         fields.push(field);
       });
       fields.push(
-        <p className="fields-content inter  flex row between">
+        <p key="sun" className="fields-content inter  flex row between">
           <span style={{ fontWeight: 400 }}>Sun</span>
           <span className="italic">{typedData.monSun}</span>
         </p>
@@ -121,7 +121,7 @@ export default function SideContent(
         if (datum === typedData.email) {
           fieldClass = "fields-content inter email";
           fields.push(
-            <a href={`mailto:${datum}`} className={fieldClass}>
+            <a key="email" href={`mailto:${datum}`} className={fieldClass}>
               {datum}
             </a>
           );
@@ -132,7 +132,7 @@ export default function SideContent(
 
         fields.push(
           <p
-            key={fieldClass}
+            key={datum}
             className={fieldClass}
             style={{ fontWeight: datum === typedData.number ? 400 : "default" }}
           >
@@ -142,11 +142,17 @@ export default function SideContent(
       });
       const complexFields: JSX.Element[][] = [
         typedData.address.map((addressField: string): JSX.Element => {
-          return <span className="address-span">{addressField}</span>;
+          return (
+            <span key={addressField} className="address-span">
+              {addressField}
+            </span>
+          );
         }),
       ];
       fields.push(
-        <p className="flex column fields-content inter">{complexFields[0]}</p>
+        <p key="address-thing" className="flex column fields-content inter">
+          {complexFields[0]}
+        </p>
       );
     }
     return (
@@ -264,7 +270,11 @@ export default function SideContent(
     <motion.div
       initial={initial}
       animate={animate}
-      transition={sideContentState === 0 ? {...closingTransition} : {...openingTransition}}
+      transition={
+        sideContentState === 0
+          ? { ...closingTransition }
+          : { ...openingTransition }
+      }
       id="side-pane"
     >
       <div

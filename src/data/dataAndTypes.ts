@@ -39,10 +39,8 @@ export interface ArtistDatum {
 }
 export interface ModularContentBlockProps {
   isOdd: boolean;
-  isHome: boolean;
   imageUrlArray: string[];
   rightHandContent: JSX.Element;
-  key? : string
 }
 
 // Functions

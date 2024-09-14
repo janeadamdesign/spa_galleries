@@ -271,7 +271,7 @@ $sidePaneTransparencyConstant: 0.95;
   transform: translate(-50%, -50%);
   background: $footerBackground;
   border-bottom: 0.05rem solid black;
-  min-width: 25rem;
+  min-width: min(25rem, 100vw);
 }
 
 .cd-horizontal {
