@@ -25,9 +25,6 @@ export default function Header(): React.ReactElement {
     };
   }, []);
 
-
-
-
   // Navlink Function
   const [sideContentState, setSideContentState]: [
     number,
@@ -35,7 +32,7 @@ export default function Header(): React.ReactElement {
   ] = useState<number>(0);
   // Navlink content
   const navlinks: string[] = ["Get in Touch", "Opening Times"];
-  const injectNavlinks = (navlinkTextArray: string[]) => {
+  const injectNavlinks = (navlinkTextArray: string[]): JSX.Element => {
     const navJSXArray: JSX.Element[] = navlinkTextArray.map(
       (navlinkText: string): JSX.Element => {
         let number: number = 0;
@@ -86,7 +83,7 @@ export default function Header(): React.ReactElement {
     const deselect = (e: MouseEvent): void => {
       const target: HTMLElement = e.target as HTMLElement;
       const id: string = target.id;
-      const isClickInsideSidePane = target.closest("#side-pane") !== null;
+      const isClickInsideSidePane: boolean = target.closest("#side-pane") !== null;
       if (id !== "get" && id !== "opening" && !isClickInsideSidePane) {
         setSideContentState(0);
       }
@@ -131,22 +128,27 @@ export default function Header(): React.ReactElement {
         <p className="header-title">The Spa Galleries</p>
         {injectNavlinks(navlinks)}
       </div>
-      
+
       <div id="logo-header-overlay" className="full-dims flex row center">
         <div
           id="logo-container"
           className={logoRotate ? "rotate-logo" : "unrotate-logo"}
         >
-          {!isSmall && <img
-            src="/pantiles.png"
-            alt="spa-logo"
-            id="logo-image"
-            className="full-dims"
-          />}
+          {!isSmall && (
+            <img
+              src="/pantiles.png"
+              alt="spa-logo"
+              id="logo-image"
+              className="full-dims"
+            />
+          )}
         </div>
       </div>
 
-      <SideContent sideContentState={sideContentState} setSideContentState={setSideContentState} />
+      <SideContent
+        sideContentState={sideContentState}
+        setSideContentState={setSideContentState}
+      />
     </>
   );
 }

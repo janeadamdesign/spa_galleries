@@ -25,9 +25,6 @@ export default function WhiteScreen(
     isHorizontal: boolean;
   } = props;
 
-
-
-
   // Clickable logic
   const [isClickable, setIsClickable]: [
     boolean,
@@ -39,10 +36,10 @@ export default function WhiteScreen(
       setIsClickable(true);
     }, 2000);
     return (): void => {
-      clearTimeout(clickTimer)
+      clearTimeout(clickTimer);
     };
   }, []);
-  const isClickableAttributes: {} = {
+  const isClickableAttributes: { className: string; onClick: () => void } = {
     className: "clickable",
     onClick: (): void => {
       setIntroduction(false);

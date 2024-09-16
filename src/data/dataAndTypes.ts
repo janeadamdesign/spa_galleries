@@ -1,10 +1,34 @@
 // Types
+export interface ArtistData {
+  [key: number]: ArtistDatum;
+}
+export interface ArtistDatum {
+  artistName: string;
+  link?: string;
+  urls: string[];
+}
 export interface ContactDetails {
   name: string;
   number: string;
   email: string;
   address: string[];
   socials: string[];
+}
+export interface EventData {
+  [key: number]: EventDataContent;
+}
+export interface EventDataContent {
+  title: string;
+  italicisedWords?: string;
+  dateVector: [number, number];
+  description: {
+    [key: string]: string;
+  };
+}
+export interface ModularContentBlockProps {
+  isOdd: boolean;
+  imageUrlArray: string[];
+  rightHandContent: JSX.Element;
 }
 export interface OpeningTimes {
   monSun: string;
@@ -18,30 +42,7 @@ export interface ParagraphAnimate {
 export interface SpaContentAnimation {
   [key: string]: { opacity: number; x: number };
 }
-export interface EventData {
-  [key: number]: EventDataContent;
-}
-export interface EventDataContent {
-  title: string;
-  italicisedWords?: string;
-  dateVector: [number, number];
-  description: {
-    [key: string]: string;
-  };
-}
-export interface ArtistData {
-  [key: number]: ArtistDatum;
-}
-export interface ArtistDatum {
-  artistName: string;
-  link?: string;
-  urls: string[];
-}
-export interface ModularContentBlockProps {
-  isOdd: boolean;
-  imageUrlArray: string[];
-  rightHandContent: JSX.Element;
-}
+
 
 // Functions
 export const storeImages = (

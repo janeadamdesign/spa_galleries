@@ -1,6 +1,6 @@
 // package imports
-import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 
 // local imports
 import { ModularContentBlockProps } from "@/data/dataAndTypes";
@@ -52,6 +52,7 @@ export default function ModularContentBlock(
     <div className="half-photo-container">
       <AnimatePresence>
         <motion.img
+          alt={imageUrlArray[imageState]}
           src={imageUrlArray[imageState]}
           key={`key-${imageUrlArray[imageState]}`}
           className="spa-content-photo full-dims"

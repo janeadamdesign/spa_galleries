@@ -21,9 +21,11 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
   // Gigachad useEffect to establish the whole scene
   useEffect((): void | (() => void) => {
     if (!mountRef.current) return;
-    const divHeight: number = mountRef.current.clientHeight;
-    const divWidth: number = mountRef.current.clientWidth;
-    const sizeConst: number = pageState === 3 ? Math.min(divHeight, divWidth) : divHeight;
+    const mounted: HTMLDivElement = mountRef.current;
+    const divHeight: number = mounted.clientHeight;
+    const divWidth: number = mounted.clientWidth;
+    const sizeConst: number =
+      pageState === 3 ? Math.min(divHeight, divWidth) : divHeight;
 
     // Declarations to establish scene
     const scene: THREE.Scene = new THREE.Scene();
@@ -40,7 +42,7 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
     // Situating scene
 
     renderer.setSize(sizeConst, sizeConst);
-    mountRef.current.appendChild(renderer.domElement);
+    mounted.appendChild(renderer.domElement);
 
     // Geometry & textures
     const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({
@@ -186,12 +188,13 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
 
     // Handle resizing
     const handleResize = (): void => {
-      if (!mountRef.current) return;
       let resize: number | null;
-      if (pageState === 3){
-        resize = Math.min(mountRef.current.clientHeight, mountRef.current.clientWidth);
-      }
-      else resize = mountRef.current.clientHeight;
+      if (pageState === 3) {
+        resize = Math.min(
+          mounted.clientHeight,
+          mounted.clientWidth
+        );
+      } else resize = mounted.clientHeight;
       renderer.setSize(resize, resize);
       camera.aspect = 1;
       camera.updateProjectionMatrix();
@@ -202,8 +205,8 @@ export default function Geometer(props: GeometerProps): React.ReactElement {
     return (): void => {
       window.removeEventListener("resize", handleResize);
 
-      if (!mountRef.current || !shape) return;
-      mountRef.current.removeChild(renderer.domElement);
+      if (!shape) return;
+      mounted.removeChild(renderer.domElement);
       scene.remove(shape);
       renderer.dispose();
     };

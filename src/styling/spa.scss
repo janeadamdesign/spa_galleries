@@ -738,6 +738,7 @@ $sidePaneTransparencyConstant: 0.95;
 .artist-portrait {
   aspect-ratio: 3/4;
   height: calc((100vh - 10rem) * 0.9);
+  height: calc((100dvh - 10rem) * 0.9);
   background: linear-gradient(to top, $doubleContentGrey, $background);
   overflow: hidden;
   box-shadow: 0rem 0.5vh $boxShadowBlur rgba(0, 0, 0, 0.4);

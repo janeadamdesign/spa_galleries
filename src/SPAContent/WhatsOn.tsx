@@ -6,10 +6,11 @@ import {
   eventImageUrls,
   eventData,
   EventDataContent,
+  ModularContentBlockProps,
 } from "@/data/dataAndTypes";
-import ModularContentBlock from "@/components/ModularContentBlock";
+
 import HalfModules from "@/components/HalfModules";
-import { ModularContentBlockProps } from "@/data/dataAndTypes";
+import ModularContentBlock from "@/components/ModularContentBlock";
 
 interface WhatsOnProps {
   isDoubles: boolean;
@@ -77,7 +78,7 @@ export default function WhatsOn(props: WhatsOnProps): React.ReactElement {
       const desiredDayString: string = days[desiredDayNumerical];
       const weeksAdjuster: number = values[1] * 7;
       const currentDate: Date = new Date();
-      const currentDay = currentDate.getDay();
+      const currentDay: number = currentDate.getDay();
 
       let daysToNext: number = desiredDayNumerical - currentDay;
       if (daysToNext < 0) {

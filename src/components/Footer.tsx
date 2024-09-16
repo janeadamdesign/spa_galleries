@@ -1,7 +1,7 @@
 // Package imports
+import { motion, AnimatePresence, easeInOut, easeOut } from "framer-motion";
 import React, { useState, useEffect, useRef } from "react";
 import validator from "validator";
-import { motion, AnimatePresence, easeInOut, easeOut } from "framer-motion";
 
 // Local imports
 import { ParagraphAnimate } from "@/data/dataAndTypes";
@@ -98,7 +98,7 @@ export default function Footer(props: FooterProps): React.ReactElement {
   useEffect((): (() => void) => {
     const dialogTimer: NodeJS.Timeout | number = setTimeout((): void => {
       if (dialog) {
-         setDialog(false);
+        setDialog(false);
       }
     }, 2000);
     return (): void => {
@@ -207,7 +207,9 @@ export default function Footer(props: FooterProps): React.ReactElement {
             <div id="screen-dim" />
             <motion.div
               id="compulsory-dialog"
-              className={`flex column around ${isHorizontal ? "cd-horizontal" : "cd-vertical"}`}
+              className={`flex column around ${
+                isHorizontal ? "cd-horizontal" : "cd-vertical"
+              }`}
               initial={{ maxHeight: "0%" }}
               animate={{ maxHeight: "100%" }}
               transition={{
@@ -219,7 +221,7 @@ export default function Footer(props: FooterProps): React.ReactElement {
               {" "}
               <p className="header-title">Thank you !</p>
               <p className="inter dialog-text">
-                Keep an eye on your inbox, we'll be in touch soon
+                Keep an eye on your inbox, we&apos;ll be in touch soon
               </p>
             </motion.div>
           </motion.div>

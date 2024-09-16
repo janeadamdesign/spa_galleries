@@ -2,20 +2,22 @@
 "use client";
 
 // Package Imports
-import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 
 // Local Imports
 import "../styling/spa.scss";
 import "../styling/RTGTransitions.scss";
-import Header from "../components/Header";
-import SubHeader from "../components/SubHeader";
-import Footer from "../components/Footer";
-import HomeContent from "../SPAContent/HomeContent";
+
 import Artists from "@/SPAContent/Artists";
-import WhatsOn from "@/SPAContent/WhatsOn";
+import Footer from "../components/Footer";
 import Geometer from "../components/Geometer";
+import Header from "../components/Header";
+import HomeContent from "../SPAContent/HomeContent";
+import SubHeader from "../components/SubHeader";
+import WhatsOn from "@/SPAContent/WhatsOn";
 import WhiteScreen from "@/components/WhiteScreen";
+
 import {
   SpaContentAnimation,
   pantilesUrls,

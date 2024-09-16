@@ -1,9 +1,12 @@
 // Local imports
-import { spaGalleriesPantiles, pantilesUrls } from "@/data/dataAndTypes";
-import ModularContentBlock from "@/components/ModularContentBlock";
+import {
+  spaGalleriesPantiles,
+  pantilesUrls,
+  ModularContentBlockProps,
+} from "@/data/dataAndTypes";
+
 import HalfModules from "@/components/HalfModules";
-import { ModularContentBlockProps } from "@/data/dataAndTypes";
-import { TURBO_TRACE_DEFAULT_MEMORY_LIMIT } from "next/dist/shared/lib/constants";
+import ModularContentBlock from "@/components/ModularContentBlock";
 
 interface HomeContentProps {
   isDoubles: boolean;
@@ -38,7 +41,6 @@ export default function HomeContent(
 
   const modularProps: ModularContentBlockProps = {
     isOdd: false,
-    isHome: true,
     imageUrlArray: pantilesUrls,
     rightHandContent: homeText,
   };

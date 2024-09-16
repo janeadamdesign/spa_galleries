@@ -258,7 +258,8 @@ export default function SideContent(
     };
   }, [circleLeft, circleTop, circleLeft2, circleTop2]);
   // Animation values for Framer Motion
-  const circleTransition = { type: "spring", stiffness: 1000, damping: 200 };
+  const circleTransition: { type: string; stiffness: number; damping: number } =
+    { type: "spring", stiffness: 1000, damping: 200 };
 
   // Close UI Logic
   const [crossHovered, setCrossHovered]: [
@@ -318,6 +319,7 @@ export default function SideContent(
         <div id="ui-cross-container">
           <div id="ui-relative-layer" className="full-dims flex column center">
             <motion.img
+              alt="ui-cross"
               id="ui-cross"
               src="/ui_close_black.png"
               className="full-dims"

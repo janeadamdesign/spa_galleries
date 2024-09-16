@@ -1,6 +1,6 @@
 // package imports
-import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 
 // local imports
 import { ModularContentBlockProps } from "@/data/dataAndTypes";
@@ -41,21 +41,22 @@ export default function ModularContentBlock(
       clearTimeout(photoTimer);
     };
   }, [imageState, imageUrlArray]);
-  const evenInitial: {clipPath: string} = {
+  const evenInitial: { clipPath: string } = {
     clipPath: "inset(0 0 0 100%)",
   };
-  const oddInitial: {clipPath: string} = {
+  const oddInitial: { clipPath: string } = {
     clipPath: "inset(0 100% 0 0)",
   };
   const photoSide: JSX.Element = (
     <div className="photo-container">
       <AnimatePresence>
         <motion.img
+          alt={imageUrlArray[imageState]}
           src={imageUrlArray[imageState]}
           key={`key-${imageUrlArray[imageState]}`}
           className="spa-content-photo full-dims"
           initial={isOdd ? { ...oddInitial } : { ...evenInitial }}
-          animate={{ clipPath: `inset(0 0 0 0)`}}
+          animate={{ clipPath: `inset(0 0 0 0)` }}
           exit={{ clipPath: `inset(0 0 0 0)`, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         />
@@ -67,8 +68,7 @@ export default function ModularContentBlock(
     ? "spa-content full-dims fill-grey-right"
     : "spa-content full-dims fill-grey-left";
 
-
-  // scroll animatoin 
+  // scroll animatoin
 
   return (
     <div className={parentClassName}>
@@ -78,7 +78,7 @@ export default function ModularContentBlock(
       >
         {!isOdd ? (
           <>
-           {photoSide}
+            {photoSide}
             {textSide}
           </>
         ) : (

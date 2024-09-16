@@ -1,6 +1,6 @@
 //package imports
-import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
 // local imports
 import { artistData, ArtistDatum } from "@/data/dataAndTypes";
@@ -57,6 +57,7 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
         <AnimatePresence>
           {" "}
           <motion.img
+            alt={`url-${urls[urlState]}`}
             key={`url-${urls[urlState]}`}
             initial={{ clipPath: `inset(0 0 100% 0)` }}
             animate={{ clipPath: `inset(0 0 0 0)` }}
@@ -77,12 +78,12 @@ function ArtistPortrait(props: ArtistPortraitProps): React.ReactElement {
 }
 
 interface ArtistsProps {
-  isDoubles: boolean
+  isDoubles: boolean;
 }
 
 export default function Artists(props: ArtistsProps): React.ReactElement {
   // Destructuring Props
-  const {isDoubles} : {isDoubles: boolean} = props;
+  const { isDoubles }: { isDoubles: boolean } = props;
 
   // Portrait generation logic
   const numberOfArtists: number = Object.values(artistData).length;
@@ -124,10 +125,13 @@ export default function Artists(props: ArtistsProps): React.ReactElement {
         }
       );
     } else {
-      const chunkArray = (array: any[], chunkSize: number) => {
-        const result = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-          const chunk = array.slice(i, i + chunkSize);
+      const chunkArray = (
+        array: any[],
+        chunkSize: number
+      ): React.ReactElement[][] => {
+        const result: React.ReactElement[][] = [];
+        for (let i: number = 0; i < array.length; i += chunkSize) {
+          const chunk: React.ReactElement[] = array.slice(i, i + chunkSize);
           result.push(chunk);
         }
         return result;
@@ -142,7 +146,10 @@ export default function Artists(props: ArtistsProps): React.ReactElement {
             double = double.slice().reverse();
           }
           return (
-            <div key={`double-${index}`} className="double-portrait flex row around">
+            <div
+              key={`double-${index}`}
+              className="double-portrait flex row around"
+            >
               {double}
             </div>
           );
