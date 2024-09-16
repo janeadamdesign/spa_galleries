@@ -150,7 +150,7 @@ export default function Footer(props: FooterProps): React.ReactElement {
                       transform: "translateY(-75%)",
                     }
                   : {
-                      width: "50%",
+                      width: "max(50%, 20rem)",
                       transform: "translateY(0%",
                     }
               }

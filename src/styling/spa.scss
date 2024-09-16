@@ -114,6 +114,8 @@
   font-weight: 200;
   font-size: 1rem;
   text-align: center;
+  // max-width: min(100vw, 20rem);
+  box-sizing: border-box;
 }
 
 // variables
@@ -550,6 +552,7 @@ $sidePaneTransparencyConstant: 0.95;
 
 #subscribe-button,
 #subscribed-button {
+  color: black;
   padding: 1.5rem;
   transition: 0.25s ease-in-out;
 }
