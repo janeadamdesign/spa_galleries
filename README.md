@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Spa Galleries
 
-## Getting Started
+## Local gallery and events space website
 
-First, run the development server:
+Brochure website for a small local gallery and events space situated in The Pantiles, Tunbridge Wells. Built in Next.js using App Router with three dynamically rendered 'sections': a welcome section, a section showing artists who currently exhibit at The Spa Galleries, and an events section. Features three-dimensional wireframe animations developed using Three.js and vanilla JavaScript manipulation of DOM elements.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+On initial page load the user is greeted by full-screen 3D wireframe animation as it zooms out into focus as an elevated 'postcard'. Interacting with animation causes the full-screen page to swipe out of the viewport,  revealing the main website.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app is strictly a single-page application with sections rendered dynamically inside the UI. Outer structure of app has header with animated logo and buttons to load a sidepane with further information. Side pane animates in and out using spring animations to display contact details and opening times of the gallery; both sections contain 3D animations of simple CSS shapes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+There is a footer with a field for entering an email to subscribe to newsletters. When a user has submitted their email address the UI alters to reflect this and temporarily displays a dialog box in the center of the page while the rest of the website is blurred.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Beneath the main header is a subheader with navlinks to render the interior 'sections'.
 
-## Learn More
+Home section uses a modular 'card' component to show basic information about the gallery. Events section uses the same modular 'card' component to show information for each upcoming event. Artists section uses a different modular 'card' component to display information about artists who are currently exhibiting. Each main section contains a small revolving Three.js wireframe animation.
 
-To learn more about Next.js, take a look at the following resources:
+## Known issues
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Mobile browsers on some devices zoom in on UI when email input field is focussed, causing unwanted visual effects. Specifying font-size must be 16px minimum does not seem to prevent this from happening.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Dependencies
 
-## Deploy on Vercel
+- @tsparticles/engine
+- @tsparticles/react
+- eslint
+- eslint-config-next
+- framer-motion
+- next
+- p5
+- react
+- react-dom
+- react-p5-wrapper
+- react-spring
+- react-transition-group
+- react-tsparticles
+- sass
+- three
+- typescript
+- validator
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
