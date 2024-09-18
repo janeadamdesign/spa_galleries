@@ -83,9 +83,9 @@ export const openingTimes: OpeningTimes = {
 export const pantilesUrls: string[] = ["/g1.jpeg", "/g3.jpeg", "/g2.jpg"];
 export const spaGalleriesPantiles: { [key: number]: string } = {
   0: "Philip Bret-Day at The Spa Galleries is a small general dealer specialising in the buying and selling of inexpensive, easily collectable prints and pictures. He currently represents a number of local contemporary painters.",
-  1: "A keen researcher, Philip’s particular area of expertise is Georgian optical views and Deco fashion, but he has a wide knowledge of many pre-1930s works on paper. Additional knowledge of Russian and French art history (as well military history in general) gives Philip a well-rounded yet paradoxically niche view on the art world.",
-  2: "Philip is also a regular contributor to arts appreciation events, delivering talks on Coco Chanel, Casanova in London and the History of the camera obscura in the development of painting.",
-  3: "When space allows the gallery can sometimes accommodate small exhibitions.",
+  1: "A keen researcher, Philip’s particular area of expertise is Georgian optical views and Deco fashion, but he has a wide knowledge of many pre-1930s works on paper. Additional knowledge of Russian and French art history, as well as military history in general, gives Philip a well-rounded yet paradoxically niche view of the art world.",
+  2: "Philip is also a regular contributor to arts appreciation events, delivering talks on Coco Chanel, Casanova in London, and the history of the camera obscura in the development of painting.",
+  3: "When space allows, the gallery can sometimes accommodate small exhibitions.",
 };
 
 export const civilWarUrls: string[] = [
@@ -150,8 +150,8 @@ export const eventData: EventData = {
     italicisedWords: "Pon de Pantiles",
     dateVector: [5, 0],
     description: {
-      0: "A vibrant annual street festival held in Tunbridge Wells, celebrating the rich tapestry of carnival culture. Organised by The Spa Galleries, this event transforms the historic Pantiles area into a bustling hub of music, dance, and colorful festivities each summer, drawing locals and tourists alike to experience its lively atmosphere.",
-      1: " Attendees can enjoy live music ranging from samba to calypso, spectacular dance displays, and workshops that invite participation from all ages. Art installations and local artisan booths line the streets, offering unique crafts and cultural artifacts.",
+      0: "A vibrant annual street festival held in Tunbridge Wells, celebrating the rich tapestry of carnival culture. Organised by The Spa Galleries, this event transforms the historic Pantiles area into a bustling hub of music, dance, and colourful festivities each summer, drawing locals and tourists alike to experience its lively atmosphere.",
+      1: " Attendees can enjoy live music ranging from samba to calypso, spectacular dance displays, and workshops that invite participation from all ages. Art installations and local artisan booths line the streets, offering unique crafts and cultural artefacts.",
       2: "Pon de Pantiles enriches the local community by bringing together diverse groups to celebrate and appreciate global carnival traditions, serving as a platform for cultural exchange by fostering a sense of community and inclusivity.",
       3: " Since its inception, the festival has grown significantly, becoming a key highlight of the summer season.",
     },
@@ -161,10 +161,10 @@ export const eventData: EventData = {
     italicisedWords: "Civil War",
     dateVector: [0, 1],
     description: {
-      0: "Set in a future America on the verge of collapse, A24's Civil War follows a team of journalists embedded with the military as they race to Washington DC amid escalating conflicts, capturing their perilous journey through a nation gripped by division and unrest.",
+      0: "Set in a future America on the verge of collapse, A24's Civil War follows a team of journalists embedded with the military as they race to Washington, D.C. amid escalating conflicts, capturing their perilous journey through a nation gripped by division and unrest.",
       1: "Visually, the film distinguishes itself with a stark portrayal of a dystopian world that resembles a post-apocalyptic horror film. Directed with a keen eye for tension, the film utilises daylight to enhance the haunting atmosphere, making each scene a grim reflection of a divided society.",
-      2: "This stark narrative is punctuated by moments of intense personal and societal reflection, revealing the deep scars of a nation and individuals grappling with the consequences of their choices. The director, Alex Garland, challenges the audience to consider the realities of war, not through its usual glorification, but by exposing the raw and often unsettling truth of its impact on human lives and society.",
-      3: "Civil War features standout performances by Kirsten Dunst, Wagner Moura, and Stephen McKinley Henderston.",
+      2: "This stark narrative is punctuated by moments of intense personal and societal reflection, revealing the deep scars of a nation and of individuals grappling with the consequences of their choices. The director, Alex Garland, challenges the audience to consider the realities of war, not through its usual glorification, but by exposing the raw and often unsettling truth of its impact on human lives and society.",
+      3: "Civil War features standout performances by Kirsten Dunst, Wagner Moura, and Stephen McKinley Henderson.",
     },
   },
 
@@ -175,18 +175,18 @@ export const eventData: EventData = {
     description: {
       0: "Hosted by Philip Bret-Day, owner of Spa Galleries, the local military history society in Tunbridge Wells is a dedicated group committed to exploring the extensive military history of the British Isles.",
       1: "This society gathers weekly at Spa Galleries, providing a regular forum for enthusiasts and historians to engage with the past through a shared interest in military events and legacies.",
-      2: "Each week, the society offers a range of activities that may include expert-led discussions, documentary viewings, and interactive sessions, often co-hosted by archive staff from The Amelia library.",
-      3: "The society welcomes anyone interested in military history, providing a welcoming environment for both seasoned historians and new enthusiasts. The consistent weekly meetings help cultivate a strong community bond and a dynamic forum for discussion and discovery.",
+      2: "Each week, the society offers a range of activities that may include expert-led discussions, documentary viewings, and interactive sessions, often co-hosted by archive staff from The Amelia Library.",
+      3: "The society invites anyone interested in military history, providing a welcoming environment for both seasoned historians and new enthusiasts. The consistent weekly meetings help cultivate a strong community bond and a dynamic forum for discussion and discovery.",
     },
   },
   4: {
     title: "Riefenstahl, Cinematography, and Genocide",
     dateVector: [4, 1],
     description: {
-      0: "Join us for an enlightening lecture by Philip Bret-Day, delving into the complex legacy of Leni Riefenstahl, a filmmaker whose work during the Nazi era has speaked intense debate and scrutiny, prompted by new reveleations suggesting Riefenstahl was not only a witness to Nazi atrocities but an active participant in them.",
+      0: "Join us for an enlightening lecture by Philip Bret-Day, delving into the complex legacy of Leni Riefenstahl, a filmmaker whose work during the Nazi era has sparked intense debate and scrutiny, prompted by new revelations suggesting Riefenstahl was not only a witness to Nazi atrocities but an active participant in them.",
       1: "Damning new evidence from her estate reveals her continued admiration for Nazi ideology until her death in 2003, exposing her presence at a massacre of Polish Jews in 1939, challenging her previous denials and suggesting her directions during filming may have inspired the violence.",
       2: "The talk will cover her role as a propagandist who used her cinematographic skills to craft compelling yet deeply problematic propaganda for the Nazis, juxtaposing her acclaimed visuals against the grim realities they endorsed.",
-      3: "By examining Riefenstahl's legacy, the talk will also touch on broader themes of memory, guilt, and the portrayal of history through film, inviting attendees to reflect on how history is remembered and the figures we choose to celebrate.",
+      3: "By examining Riefenstahl's legacy, the talk will also touch on broader themes of memory, guilt, and the portrayal of history through film, inviting attendees to reflect on how history is remembered and on the figures we choose to celebrate.",
     },
   },
   5: {
@@ -196,8 +196,8 @@ export const eventData: EventData = {
     description: {
       0: "Set in a futuristic urban dystopia, Fritz Lang's Metropolis is a pioneering science fiction film that explores the sharp social divisions between workers and the city's elite. The film's narrative revolves around Freder, the wealthy son of the city’s mastermind, who becomes disillusioned with the societal inequality and champions the cause of the oppressed workers after falling in love with Maria, a prophetic figure among the laborers.",
       1: "Metropolis is known for its groundbreaking special effects and set design that vividly capture the mechanised cityscape. Its towering skyscrapers and complex machinery served as early blueprints for cinematic depictions of futuristic cities.",
-      3: "Lang's narrative in Metropolis is rich with themes of class struggle, love, and redemption, interwoven with religious and mythological references that enhance its philosophical depth.",
-      4: "The film challenges viewers with its depiction of technology and industrialisation impacting human relations and social order, posing enduring questions about progress and humanity.",
+      2: "Lang's narrative in Metropolis is rich with themes of class struggle, love, and redemption, interwoven with religious and mythological references that enhance its philosophical depth.",
+      3: "The film challenges viewers with its depiction of technology and industrialisation impacting human relations and social order, posing enduring questions about progress and humanity.",
     },
   },
 };
